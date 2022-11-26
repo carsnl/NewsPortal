@@ -1,0 +1,73 @@
+/* Global style */
+
+
+/* Page */
+.page-container {
+    border: 2px solid grey;
+    margin: 20px 20px;
+    padding: 10px 10px;
+}
+
+/* NavBar */
+.navbar-container {
+    border: 2px solid red;
+
+    /* Navbar row layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-container header {
+    font-size: 1.6rem;
+}
+
+/* Menu */
+.menu-container {
+    border: 2px solid orange;
+
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.menu-item {
+    border: 2px solid yellow;
+}
+
+/* News */
+
+.news-container {
+    border: 2px solid blue;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+
+    margin: 20px 0px;
+}
+
+.news-container .news-item {
+    border: 2px solid cyan;
+}
+
+.news-container img {
+    border: 2px solid turquoise;
+
+    width: 100%;
+    overflow: hidden;
+}
+
+.news-container h3 {
+    border: 2px solid purple;
+
+    margin: 0;
+    padding: 5px 0px;
+}
+
+.news-container p {
+    border: 2px solid pink;
+
+    margin: 0;
+}
