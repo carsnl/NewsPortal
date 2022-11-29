@@ -24,19 +24,27 @@
 
 </head>
 <body>
+    <!-- Navbar -->
+    <section class="navbar-container">
+        <!-- Header -->
+        <header>
+            <a href="index.html">Content Digest</a> 
+        </header>
+        <!-- Collapsed Menu -->
+        <button class="collapsed-menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </section>
     <div class="page-container">
-        <!-- Navbar -->
-        <section class="navbar-container">
-            <!-- Header -->
-            <header>
-                <a href="index.html">Content Digest</a> 
-            </header>
-            <!-- Collapsed Menu -->
-            <button class="collapsed-menu">
-                <i class="fa-solid fa-bars"></i>
+        <!-- Search -->
+        <section class="search-container">
+            <div class="search-bar">
+                <label for="search-input"></label>
+                <input type="text" name="search-input" id="search-input" placeholder="Search a topic" class="search-query">
+            </div>
+            <button type="submit" class="search-btn">
+                <i class="fa-solid fa-magnifying-glass"></i>
             </button>
-            <!-- Settings
-            <i class="fa-solid fa-gear setting"></i> -->
         </section>
         <!-- Menu Options -->
         <div class="menu-container">
@@ -58,22 +66,22 @@
                 <h3>Title 1</h3>
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius id quis quas pariatur nemo placeat ducimus atque tempora ea perferendis?</p>
             </article>
-            <!-- News Story -->
+
             <article class="news-item">
                 <img src="./assets/images/phone.jpg" alt="phone">
-                <h3>Title 2</h3>
+                <h3>Title 1</h3>
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius id quis quas pariatur nemo placeat ducimus atque tempora ea perferendis?</p>
             </article>
-            <!-- News Story -->
+
             <article class="news-item">
                 <img src="./assets/images/phone.jpg" alt="phone">
-                <h3>Title 3</h3>
+                <h3>Title 1</h3>
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius id quis quas pariatur nemo placeat ducimus atque tempora ea perferendis?</p>
             </article>
-            <!-- News Story -->
+
             <article class="news-item">
                 <img src="./assets/images/phone.jpg" alt="phone">
-                <h3>Title 4</h3>
+                <h3>Title 1</h3>
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius id quis quas pariatur nemo placeat ducimus atque tempora ea perferendis?</p>
             </article>
 
@@ -85,6 +93,7 @@
     </footer>
 
     <!-- Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
     <script src="main.js"></script>
 </body>
 </html>
