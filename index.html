@@ -11,9 +11,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Roboto -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap" rel="stylesheet">
     <!-- Playfair Display -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;800&display=swap" rel="stylesheet">
     <!-- Monserrat -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
 
@@ -40,7 +40,7 @@
         <section class="search-container">
             <div class="search-bar">
                 <label for="search-input"></label>
-                <input type="text" name="search-input" id="search-input" placeholder="Search a topic" class="search-query">
+                <input type="text" name="search-input" id="search-input" placeholder="Search for a topic" class="search-query">
             </div>
             <button type="submit" class="search-btn">
                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -61,31 +61,23 @@
         <!-- News Articles -->
         <section class="news-container">
             <!-- News Story -->
-            <article class="news-item">
-                <img src="./assets/images/phone.jpg" alt="phone">
-                <h3>Title 1</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius id quis quas pariatur nemo placeat ducimus atque tempora ea perferendis?</p>
-            </article>
-
-            <article class="news-item">
-                <img src="./assets/images/phone.jpg" alt="phone">
-                <h3>Title 1</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius id quis quas pariatur nemo placeat ducimus atque tempora ea perferendis?</p>
-            </article>
-
-            <article class="news-item">
-                <img src="./assets/images/phone.jpg" alt="phone">
-                <h3>Title 1</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius id quis quas pariatur nemo placeat ducimus atque tempora ea perferendis?</p>
-            </article>
-
-            <article class="news-item">
-                <img src="./assets/images/phone.jpg" alt="phone">
-                <h3>Title 1</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius id quis quas pariatur nemo placeat ducimus atque tempora ea perferendis?</p>
-            </article>
-
         </section>
+
+    <!-- Toast Notifications -->
+    <!-- Empty search query -->
+    <div class="toast-empty-search toast-container toast">
+        <div class="toast-content">
+            <div class="toast-img">
+                <i class="fa-solid fa-circle-exclamation"></i>
+            </div>
+            <div class="toast-text">
+                <p>No search topic provided.</p> 
+            </div>
+            <div class="toast-close">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+        </div>
+    </div>
     </div>
     <!-- Footer -->
     <footer>

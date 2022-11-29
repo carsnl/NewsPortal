@@ -6,6 +6,11 @@ const searchQuery = document.querySelector(".search-query")
 const searchBtn = document.querySelector(".search-btn")
 const newsContainer = document.querySelector(".news-container")
 
+
+// Toast
+const toastEmptySearch = document.querySelector(".toast-empty-search");
+const toastClose = document.querySelector(".toast-close");
+
 // Media query for menu @ (width: 190px)
 let menuChildren = document.querySelector('.menu-container').children;
 
@@ -55,24 +60,58 @@ searchBtn.addEventListener('click', function(e) {
                     // Source
                     let source = document.createElement('h5')
                     source.textContent = article.source.name;
+                    source.classList.add('news-source')
 
                     // Date
                     let date = document.createElement('h5')
                     date.textContent = article.publishedAt.slice(0,10);
+                    date.classList.add('news-date')
 
-                    story.appendChild(img);
-                    story.appendChild(a);
-                    story.appendChild(desc);
-                    story.appendChild(source);
-                    story.appendChild(date);
+                    // Story content (image, title, description)
+                    let content = document.createElement('div')
+                    content.classList.add('story-content')
+                    content.appendChild(img);
+                    content.appendChild(a);
+                    content.appendChild(desc);
+
+                    // Story footer (source and date)
+                    let footer = document.createElement('div')
+                    footer.classList.add('story-footer')
+                    footer.appendChild(source);
+                    footer.appendChild(date);
+
+                    story.appendChild(content);
+                    story.appendChild(footer);
+
                     newsContainer.appendChild(story);
                 })
             })
     } else {
-        alert('Please provide a topic')
+        toggleToastEmptySearch();
     }
     
 
     // Clear search field
     searchQuery.value = '';
 })
+
+// ============================
+// Toast Notifications
+// ============================
+
+function toggleToastEmptySearch() {
+    toastEmptySearch.classList.toggle('active');
+    setTimeout(() => {
+        // Check if toast was previously closed
+        if (toastEmptySearch.classList.contains('active')) {
+            toastEmptySearch.classList.toggle('active');
+        }
+    }, 3500);
+}
+
+toastClose.addEventListener('click', function() {
+    let parent = toastClose.parentElement.parentElement;
+    parent.classList.toggle('active');
+}) 
+    
+
