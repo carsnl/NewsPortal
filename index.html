@@ -42,7 +42,10 @@
                 <label for="search-input"></label>
                 <input type="text" name="search-input" id="search-input" placeholder="Search for a topic" class="search-query">
             </div>
-            <button type="submit" class="search-btn">
+            <button type="menu" class="filter-btn btn">
+                <i class="fa-solid fa-list-check"></i>
+            </button>
+            <button type="submit" class="search-btn btn">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
         </section>
@@ -78,10 +81,48 @@
             </div>
         </div>
     </div>
+
+    <!-- Pop-up Windows -->
+    <!-- Filter -->
+    <div class="filter-container container">
+        <h3 class="filter-title">Filters</h3>
+        <div class="filter-close-btn">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <!-- Drop Down -->
+        <div class="filter-drop-down-container">
+            <!-- Language -->
+            <div class="filter-drop-down-item">
+                <label for="language">Language</label>
+                <select name="language" id="language">
+                    <option value="">All</option>
+                    <option value="&language=en">English</option>
+                    <option value="&language=de">German</option>
+                    <option value="&language=fr">French</option>
+                    <option value="&language=ja">Japanese</option>
+                </select>
+            </div>
+            <!-- Source -->
+            <div class="filter-drop-down-item">
+                <label for="source">Source</label>
+                <select name="source" id="source">
+                    <option value="cnn">CNN</option>
+                    <option value="the-guardian">The Guardian</option>
+                    <option value="the-new-york-times">The New York Times</option>
+                    <option value="bbc">BBC</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="filter-apply-btn btn-2">
+            <h3>Apply</h3>
+        </button>
+    </div>
     </div>
     <!-- Footer -->
     <footer>
-        <p>A footer</p>
+        <p>&copy 2022
+            <a href="https://github.com/carsnl" target="_blank">Lai Carson</a>
+        </p>
     </footer>
 
     <!-- Script -->
