@@ -8,8 +8,9 @@
     --color-gray-3: #222;
 
     /* Color: Blue */
-    --color-blue-1: #9FF4FF;
-    --color-blue-2: #0093E7;
+    --color-blue-1: #E2F4FF;
+    --color-blue-2: #9FF4FF;
+    --color-blue-3: #0093E7;
 
     /* Color: Red */
     --color-red-1: #F00000;
@@ -62,12 +63,12 @@ a:visited {
 }
 
 .btn:hover {
-    color: var(--color-blue-1);
+    color: var(--color-blue-2);
 }
 
 .btn-2 {
     border: none;
-    background: var(--color-blue-2);
+    background: var(--color-blue-3);
     color: var(--color-gray-1);
     border-radius: 8px;
 
@@ -79,9 +80,9 @@ a:visited {
 }
 
 .btn-2:active {
-    border: solid 2px var(--color-blue-2);
+    border: solid 2px var(--color-blue-3);
     background: var(--color-gray-1);
-    color: var(--color-blue-2);
+    color: var(--color-blue-3);
 }
 
 /* Page */
@@ -343,6 +344,10 @@ footer {
     transform: translate(-50%, -50%)
 }
 
+.filter-container.notice-active {
+    height: 68vh;
+}
+
 .filter-title {
     position: absolute;
     top: 9%;
@@ -378,6 +383,11 @@ footer {
     position: absolute;
     top: 18%;
 }
+
+.filter-drop-down-container.notice-active {
+    transform: translateY(32%);
+}
+
 
 .filter-drop-down-item {
     width: 100%;
@@ -425,7 +435,7 @@ footer {
 .toast-container {
     border-radius: 8px;
 
-    max-width: 400px;
+    max-width: 350px;
     height: 12vh;
 
     display: flex;
@@ -457,6 +467,12 @@ footer {
     vertical-align: middle;
 }
 
+.toast-text {
+    max-width: 70%;
+
+    font-size: 0.9rem;
+}
+
 .toast-img {
     font-size: 1.8rem;
 
@@ -473,4 +489,37 @@ footer {
 
 .toast-close:hover {
     color: var(--color-red-1);
+}
+
+/* NOTICES */
+.notice {
+    width: 85%;
+
+    z-index: 3;
+
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    top: -100%;
+
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.85rem;
+    border-radius: 8px;
+
+    background: var(--color-blue-3);
+    color: var(--color-blue-1);
+
+    padding: 8px 12px;
+}
+
+.notice i {
+    font-size: 1.25rem;
+}
+
+.country-select-notice.notice-active {
+    top: 18%;
 }

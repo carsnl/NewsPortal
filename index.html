@@ -74,7 +74,7 @@
                 <i class="fa-solid fa-circle-exclamation"></i>
             </div>
             <div class="toast-text">
-                <p>No search topic provided.</p> 
+                <p>Empty or broad search topics may return no results.</p> 
             </div>
             <div class="toast-close">
                 <i class="fa-solid fa-xmark"></i>
@@ -89,8 +89,23 @@
         <div class="filter-close-btn">
             <i class="fa-solid fa-xmark"></i>
         </div>
+        <!-- Notices -->
+        <!-- When user selects a specific country -->
+        <div class="country-select-notice notice">
+            <i class="fa-solid fa-circle-info"></i>
+            <p>For specific countries, use default filters for best results.</p>
+        </div>
         <!-- Drop Down -->
         <div class="filter-drop-down-container">
+            <!-- Sort -->
+            <div class="filter-drop-down-item">
+                <label for="sort">Sort By</label>
+                <select name="sort" id="sort">
+                    <option value="&sortBy=publishedAt">Most Recent</option>
+                    <option value="&sortBy=relevancy">Relevance</option>
+                    <option value="&sortBy=popularity">Popularity</option>
+                </select>
+            </div>
             <!-- Language -->
             <div class="filter-drop-down-item">
                 <label for="language">Language</label>
@@ -115,14 +130,25 @@
                     </div>
                 </div>
             </div>
-            <!-- Source -->
+            <!-- Country -->
             <div class="filter-drop-down-item">
-                <label for="source">Source</label>
-                <select name="source" id="source">
-                    <option value="cnn">CNN</option>
-                    <option value="the-guardian">The Guardian</option>
-                    <option value="the-new-york-times">The New York Times</option>
-                    <option value="bbc">BBC</option>
+                <label for="country">Country</label>
+                <select name="country" id="country">
+                    <option value="">All</option>
+                    <option value="&country=au">Australia</option>
+                    <option value="&country=br">Brazil</option>
+                    <option value="&country=cn">China</option>
+                    <option value="&country=de">Germany</option>
+                    <option value="&country=in">India</option>
+                    <option value="&country=id">Indonesia</option>
+                    <option value="&country=jp">Japan</option>
+                    <option value="&country=my">Malaysia</option>
+                    <option value="&country=ru">Russia</option>
+                    <option value="&country=sa">Saudi Arabia</option>
+                    <option value="&country=sg">Singapore</option>
+                    <option value="&country=ae">United Arab Emirates</option>
+                    <option value="&country=uk">United Kingdom</option>
+                    <option value="&country=us">United States</option>
                 </select>
             </div>
         </div>

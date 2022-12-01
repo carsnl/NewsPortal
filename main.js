@@ -7,15 +7,19 @@ const searchBtn = document.querySelector(".search-btn")
 const newsContainer = document.querySelector(".news-container")
 
 // Global variables
+let endpoint = 'everything';
+let filterSort = '';
 let filterLang = '';
 let filterStartDate = '';
 let filterEndDate = '';
+let filterCountry = '';
 
 // Filter
-const filterContainer = document.querySelector(".filter-container")
-const filterToggleBtn = document.querySelector(".filter-btn")
-const filterApplyBtn = document.querySelector(".filter-apply-btn")
-const filterCloseBtn = document.querySelector(".filter-close-btn")
+const filterContainer = document.querySelector(".filter-container");
+const filterToggleBtn = document.querySelector(".filter-btn");
+const filterApplyBtn = document.querySelector(".filter-apply-btn");
+const filterCloseBtn = document.querySelector(".filter-close-btn");
+const filterCountryInput = document.querySelector("#country");
 
 // Toast
 const toastEmptySearch = document.querySelector(".toast-empty-search");
@@ -49,74 +53,106 @@ searchBtn.addEventListener('click', function(e) {
     
     let query = searchQuery.value;
 
-    if (query != '') {
-        // Remove previous stories
-        removeAllChildNodes(newsContainer);
-
-        fetch(`https://newsapi.org/v2/everything?q=${searchQuery.value}${filterLang}${filterStartDate}${filterEndDate}&apiKey=${apiKey}`)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data)
-                data.articles.forEach(article => {
-                    // <article class="news-item">
-                    //     <img src="" alt="">
-                    //     <h3></h3>
-                    //     <p></p>
-                    // </article>
-                    let story = document.createElement('article');
-                    story.classList.add('news-item')
-                    // Story image
-                    let img = document.createElement('img')
-                    img.setAttribute('src', article.urlToImage)
-                    img.setAttribute('alt', 'image')
-
-                    // Story title
-                    let a = document.createElement('a');
-                    a.setAttribute('href', article.url);
-                    a.setAttribute('target', '_blank')
-                    a.textContent = article.title;
-
-                    // Story description
-                    let desc = document.createElement('p');
-                    desc.textContent = article.description;
-
-                    // Source
-                    let source = document.createElement('h5')
-                    source.textContent = article.source.name;
-                    source.classList.add('news-source')
-
-                    // Date
-                    let date = document.createElement('h5')
-                    date.textContent = article.publishedAt.slice(0,10);
-                    date.classList.add('news-date')
-
-                    // Story content (image, title, description)
-                    let content = document.createElement('div')
-                    content.classList.add('story-content')
-                    content.appendChild(img);
-                    content.appendChild(a);
-                    content.appendChild(desc);
-
-                    // Story footer (source and date)
-                    let footer = document.createElement('div')
-                    footer.classList.add('story-footer')
-                    footer.appendChild(source);
-                    footer.appendChild(date);
-
-                    // Append story to news-container
-                    story.appendChild(content);
-                    story.appendChild(footer);
-
-                    newsContainer.appendChild(story);
-                })
-            })
-    } else {
+    if (query == '') {
         toggleToastEmptySearch();
+    } else {
+        // Search query provided
+        query = `?q=${query}`
     }
-    
+
+    // Remove previous stories
+    removeAllChildNodes(newsContainer);
+
+    console.log(`https://newsapi.org/v2/${endpoint}${query}${filterSort}${filterLang}${filterStartDate}${filterEndDate}${filterCountry}&apiKey=${apiKey}`)
+
+    fetch(`https://newsapi.org/v2/${endpoint}?q=${searchQuery.value}${filterSort}${filterLang}${filterStartDate}${filterEndDate}${filterCountry}&apiKey=${apiKey}`)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data)
+            data.articles.forEach(article => {
+                // <article class="news-item">
+                //     <img src="" alt="">
+                //     <h3></h3>
+                //     <p></p>
+                // </article>
+                let story = document.createElement('article');
+                story.classList.add('news-item')
+                // Story image
+                let img = document.createElement('img')
+                img.setAttribute('src', article.urlToImage)
+                img.setAttribute('alt', 'image')
+
+                // Story title
+                let a = document.createElement('a');
+                a.setAttribute('href', article.url);
+                a.setAttribute('target', '_blank')
+                a.textContent = article.title;
+
+                // Story description
+                let desc = document.createElement('p');
+                desc.textContent = article.description;
+
+                // Source
+                let source = document.createElement('h5')
+                source.textContent = article.source.name;
+                source.classList.add('news-source')
+
+                // Date
+                let date = document.createElement('h5')
+                date.textContent = article.publishedAt.slice(0,10);
+                date.classList.add('news-date')
+
+                // Story content (image, title, description)
+                let content = document.createElement('div')
+                content.classList.add('story-content')
+                content.appendChild(img);
+                content.appendChild(a);
+                content.appendChild(desc);
+
+                // Story footer (source and date)
+                let footer = document.createElement('div')
+                footer.classList.add('story-footer')
+                footer.appendChild(source);
+                footer.appendChild(date);
+
+                // Append story to news-container
+                story.appendChild(content);
+                story.appendChild(footer);
+
+                newsContainer.appendChild(story);
+            })
+        })
 
     // Clear search field
     searchQuery.value = '';
+})
+
+// ============================
+// Input Events
+// ============================
+
+// Detect if user has selected a specific country
+filterCountryInput.addEventListener('input', function(e) {
+    let countryNotice = document.querySelector('.country-select-notice');
+    let filterForm = document.querySelector('.filter-drop-down-container');
+
+    // If specific country selected (default All is ''), prompt user
+    if (e.target.value != '') {
+        if (!(countryNotice.classList.contains('notice-active'))) {
+            // If notice is not active, activate it
+            countryNotice.classList.toggle('notice-active');
+            filterForm.classList.toggle('notice-active');
+            filterContainer.classList.toggle('notice-active');
+        }       
+    } else {
+        // All is selected
+        if ((countryNotice.classList.contains('notice-active'))) {
+            // If notice is active, deactivate it
+            countryNotice.classList.toggle('notice-active');
+            filterForm.classList.toggle('notice-active');
+            filterContainer.classList.toggle('notice-active');
+        }  
+    }
 })
 
 // ============================
@@ -124,13 +160,15 @@ searchBtn.addEventListener('click', function(e) {
 // ============================
 
 function toggleToastEmptySearch() {
-    toastEmptySearch.classList.toggle('active');
-    setTimeout(() => {
-        // Check if toast was previously closed
-        if (toastEmptySearch.classList.contains('active')) {
-            toastEmptySearch.classList.toggle('active');
-        }
-    }, 3500);
+    if (filterCountry == ''){
+        toastEmptySearch.classList.toggle('active');
+        setTimeout(() => {
+            // Check if toast was previously closed
+            if (toastEmptySearch.classList.contains('active')) {
+                toastEmptySearch.classList.toggle('active');
+            }
+        }, 3500);
+    }    
 }
 
 toastClose.addEventListener('click', function() {
@@ -140,12 +178,13 @@ toastClose.addEventListener('click', function() {
 
 // Filter apply button
 filterApplyBtn.addEventListener('click', function() {
+    // Sort
+    filterSort = (document.getElementById('sort').value).toString();
+
     // Selected language and assign to global variable
     filterLang = (document.getElementById('language').value).toString();
 
-    filterContainer.classList.toggle('active');
-
-    // Validate date
+    // Date
     const localStartDate = (document.querySelector("#start-date")).value;
     const localEndDate = (document.querySelector("#end-date")).value;
 
@@ -159,6 +198,17 @@ filterApplyBtn.addEventListener('click', function() {
     } else {
         alert('Check dates.')
     }
+
+    // Country
+    filterCountry = (document.getElementById('country').value).toString();
+
+    // If a specific country selected (not all)
+    // News API does not support 'everything' endpoint for specific countries
+    if (filterCountry !== '') {
+        endpoint = 'top-headlines';
+    }
+
+    filterContainer.classList.toggle('active');
 
     // TODO: add toast
 }) 
