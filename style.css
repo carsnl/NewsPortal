@@ -390,19 +390,34 @@ footer {
 
 }
 
-.filter-drop-down-item > label {
+.filter-drop-down-item label {
     font-family: 'Roboto', sans-serif;
     font-size: 0.85rem;
     font-weight: 500;
 }
 
-.filter-drop-down-item > select {
+.filter-drop-down-item select {
     width: 100%;
 }
 
 .filter-apply-btn {
     position: absolute;
     bottom: 6%;
+}
+
+/* Date */
+.filter-drop-down-item .date {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.date input {
+    width: 100%
 }
 
 /* TOAST NOTIFICATIONS */

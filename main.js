@@ -8,6 +8,8 @@ const newsContainer = document.querySelector(".news-container")
 
 // Global variables
 let filterLang = '';
+let filterStartDate = '';
+let filterEndDate = '';
 
 // Filter
 const filterContainer = document.querySelector(".filter-container")
@@ -51,9 +53,7 @@ searchBtn.addEventListener('click', function(e) {
         // Remove previous stories
         removeAllChildNodes(newsContainer);
 
-        console.log(`https://newsapi.org/v2/everything?q=${searchQuery.value}${filterLang}&apiKey=${apiKey}`)
-
-        fetch(`https://newsapi.org/v2/everything?q=${searchQuery.value}${filterLang}&apiKey=${apiKey}`)
+        fetch(`https://newsapi.org/v2/everything?q=${searchQuery.value}${filterLang}${filterStartDate}${filterEndDate}&apiKey=${apiKey}`)
             .then((response) => response.json())
             .then((data) => {
                 console.log(data)
@@ -145,6 +145,21 @@ filterApplyBtn.addEventListener('click', function() {
 
     filterContainer.classList.toggle('active');
 
+    // Validate date
+    const localStartDate = (document.querySelector("#start-date")).value;
+    const localEndDate = (document.querySelector("#end-date")).value;
+
+    if (validateDate(localStartDate, localEndDate)) {
+        if (localStartDate != '') {
+            filterStartDate = `&from=${localStartDate}`;
+        }
+        if (localEndDate != '') {
+            filterEndDate = `&to=${localEndDate}`;
+        }   
+    } else {
+        alert('Check dates.')
+    }
+
     // TODO: add toast
 }) 
 
@@ -156,6 +171,18 @@ filterApplyBtn.addEventListener('click', function() {
 function removeAllChildNodes(parent) {
     while (parent.firstChild) {
         parent.removeChild(newsContainer.firstChild);
+    }
+}
+
+// Date input validation
+function validateDate(start, end) {
+    // End date >= start date
+    // Two dates available
+    if (end != '' && start != '') {
+        return end >= start;
+    } else {
+        // Only 'from' or 'to' provided
+        return true
     }
 }
     
