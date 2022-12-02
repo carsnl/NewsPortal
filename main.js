@@ -47,6 +47,42 @@ filterCloseBtn.addEventListener('click', function() {
     filterContainer.classList.toggle('active');
 });
 
+// // Change filter tags
+// const tagContainer = document.querySelector('.filter-tag-container')
+
+// searchBtn.addEventListener('click', function() {
+//     // Clear all tags
+//     removeAllChildNodes(tagContainer);
+
+//     // Add tags
+//     let sort = document.createElement('p');
+//     let lang = document.createElement('p');
+//     let dateStart = document.createElement('p');
+//     let dateEnd = document.createElement('p');
+//     let country = document.createElement('p');
+
+//     sort.textContent = `${filterSort}`
+//     console.log(`${filterSort}`)
+//     sort.classList.add('default-filter')
+//     tagContainer.appendChild(sort);
+
+//     lang.textContent = `${filterLang}`
+//     lang.classList.add('default-filter')
+//     tagContainer.appendChild(lang);
+
+//     dateStart.textContent = `${filterStartDate}`
+//     dateStart.classList.add('default-filter')
+//     tagContainer.appendChild(dateStart);
+
+//     dateEnd.textContent = `${filterEndDate}`
+//     dateEnd.classList.add('default-filter')
+//     tagContainer.appendChild(dateEnd);
+
+//     country.textContent = `${filterCountry}`
+//     country.classList.add('default-filter')
+//     tagContainer.appendChild(country);
+// })
+
 // TEMP: fetch posts
 searchBtn.addEventListener('click', function(e) {
     e.preventDefault()
@@ -156,6 +192,31 @@ filterCountryInput.addEventListener('input', function(e) {
 })
 
 // ============================
+// Scroll Events
+// ============================
+
+let scrollToTopBtn = document.getElementById('scroll-to-top-btn')
+
+// Shows a button that allows user to scroll back to top of the page
+function showScrollToTopBtn() {
+    // body for Safari, documentElement for rest
+    if (document.body.scrollTop != 0 || document.documentElement.scrollTop != 0) {
+        scrollToTopBtn.style.display = 'block';
+    } else {
+        scrollToTopBtn.style.display = 'none';
+    }
+}
+
+// Returns user to top of the page
+function scrollToTop() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// Event listeners
+window.addEventListener('scroll', showScrollToTopBtn);
+scrollToTopBtn.addEventListener('click', scrollToTop);
+
+// ============================
 // Toast Notifications
 // ============================
 
@@ -219,8 +280,9 @@ filterApplyBtn.addEventListener('click', function() {
 
 // Remove all child nodes of a parent element. Used when new search query provided.
 function removeAllChildNodes(parent) {
-    while (parent.firstChild) {
-        parent.removeChild(newsContainer.firstChild);
+    while (parent.firstElementChild) {
+        console.log(parent.firstElementChild);
+        parent.removeChild(parent.firstElementChild);
     }
 }
 
