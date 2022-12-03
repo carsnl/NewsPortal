@@ -53,23 +53,8 @@
         </section>
     
         <!-- Filter Tags -->
-        <!-- <section class="section filter-tag-container">
-            Tags header
-            <header>
-                <h5>Tags:</h5>
-            </header>
-            Filter Tag
-            <div class="filter-tag default-filter">
-                <p>
-                    Filter
-                </p>
-            </div>
-            <div class="filter-tag custom-filter">
-                <p>
-                    Filter
-                </p>
-            </div>
-        </section> -->
+        <section class="section filter-tag-container">
+        </section>
 
         <!-- Error Page -->
         <!-- No results -->
@@ -119,6 +104,7 @@
             <div class="filter-drop-down-item">
                 <label for="sort">Sort By</label>
                 <select name="sort" id="sort">
+                    <option value="">No Sorting</option>
                     <option value="&sortBy=publishedAt">Most Recent</option>
                     <option value="&sortBy=relevancy">Relevance</option>
                     <option value="&sortBy=popularity">Popularity</option>
@@ -128,7 +114,7 @@
             <div class="filter-drop-down-item">
                 <label for="language">Language</label>
                 <select name="language" id="language">
-                    <option value="">All</option>
+                    <option value="">All Languages</option>
                     <option value="&language=en">English</option>
                     <option value="&language=de">German</option>
                     <option value="&language=fr">French</option>
@@ -152,7 +138,7 @@
             <div class="filter-drop-down-item">
                 <label for="country">Country</label>
                 <select name="country" id="country">
-                    <option value="">All</option>
+                    <option value="">All Countries</option>
                     <option value="&country=au">Australia</option>
                     <option value="&country=br">Brazil</option>
                     <option value="&country=cn">China</option>
@@ -192,6 +178,5 @@
 
     <!-- Script -->
     <script src="main.js"></script>
-    <script src="test.js"></script>
 </body>
 </html>

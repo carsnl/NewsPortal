@@ -62,41 +62,100 @@ filterCloseBtn.addEventListener('click', function() {
     filterContainer.classList.toggle('active');
 });
 
-// // Change filter tags
-// const tagContainer = document.querySelector('.filter-tag-container')
+// Change filter tags
+const tagContainer = document.querySelector('.filter-tag-container')
 
-// searchBtn.addEventListener('click', function() {
-//     // Clear all tags
-//     removeAllChildNodes(tagContainer);
+searchBtn.addEventListener('click', function() {
+    // Clear all tags
+    removeAllChildNodes(tagContainer);
 
-//     // Add tags
-//     let sort = document.createElement('p');
-//     let lang = document.createElement('p');
-//     let dateStart = document.createElement('p');
-//     let dateEnd = document.createElement('p');
-//     let country = document.createElement('p');
+    // Add tags
+    let queryTag = document.createElement('p');
+    let sortTag = document.createElement('p');
+    let langTag = document.createElement('p');
+    let dateStartTag = document.createElement('p');
+    let dateEndTag = document.createElement('p');
+    let countryTag = document.createElement('p');
 
-//     sort.textContent = `${filterSort}`
-//     console.log(`${filterSort}`)
-//     sort.classList.add('default-filter')
-//     tagContainer.appendChild(sort);
+    let j;
 
-//     lang.textContent = `${filterLang}`
-//     lang.classList.add('default-filter')
-//     tagContainer.appendChild(lang);
+    // Query
+    queryTag.textContent = searchQuery.value;
+    queryTag.classList.add('custom-filter')
+    tagContainer.appendChild(queryTag);
 
-//     dateStart.textContent = `${filterStartDate}`
-//     dateStart.classList.add('default-filter')
-//     tagContainer.appendChild(dateStart);
+    // Sort
+    let sortField = document.querySelector('#sort');
+    
+    for (j = 0; j < sortField.childElementCount; j++) {
+        if (`${filterSort}` == sortField.children[j].value) {
+            sortTag.textContent = sortField.children[j].textContent
+        }
+    }
 
-//     dateEnd.textContent = `${filterEndDate}`
-//     dateEnd.classList.add('default-filter')
-//     tagContainer.appendChild(dateEnd);
+    sortTag.classList.add('default-filter')
+    tagContainer.appendChild(sortTag);
 
-//     country.textContent = `${filterCountry}`
-//     country.classList.add('default-filter')
-//     tagContainer.appendChild(country);
-// })
+    // Language
+    let langField = document.querySelector('#language');
+    
+    for (j = 0; j < langField.childElementCount; j++) {
+        if (`${filterLang}` == langField.children[j].value) {
+            langTag.textContent = langField.children[j].textContent
+        }
+    }
+
+    langTag.classList.add('default-filter')
+    tagContainer.appendChild(langTag);
+
+    // Start date
+    let dateStartField = document.querySelector('#start-date');
+
+    // Only show tag is user specifies a start date
+    if (dateStartField.value != '') {
+        dateStartTag.textContent = `From ${dateStartField.value}`;
+        dateStartTag.classList.add('default-filter')
+        tagContainer.appendChild(dateStartTag);
+    }
+
+    // End date
+    let dateEndField = document.querySelector('#end-date');
+    
+    // Only show tag is user specifies an end date
+    if (dateEndField.value != '') {
+        dateEndTag.textContent = `To ${dateEndField.value}`;
+        dateEndTag.classList.add('default-filter')
+        tagContainer.appendChild(dateEndTag);
+    }
+
+    // If both start and end date not specified
+    // Results are from the past month
+    if (dateEndField.value == '' && dateStartField.value == '') {
+        let pastMonthTag = document.createElement('p');
+        pastMonthTag.textContent = 'Past Month';
+        pastMonthTag.classList.add('default-filter')
+        tagContainer.appendChild(pastMonthTag);
+    }
+
+    // Country
+    let countryField = document.querySelector('#country');
+    
+    for (j = 0; j < countryField.childElementCount; j++) {
+        if (`${filterCountry}` == countryField.children[j].value) {
+            countryTag.textContent = countryField.children[j].textContent
+        }
+    }
+
+    countryTag.classList.add('default-filter')
+    tagContainer.appendChild(countryTag);
+
+    // let array = [sortField, langField];
+    // console.log(array)
+
+    // for (j = 0; j < array.length; j++) {
+    //     console.log(array[j].childElementCount);
+    // }
+})
 
 
 // ==============================
@@ -372,5 +431,5 @@ function validateDate(start, end) {
         return true;
     }
 }
-    
+
 

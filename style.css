@@ -10,7 +10,7 @@
     --color-blue-1: #E2F4FF;
     --color-blue-2: #9FF4FF;
     --color-blue-3: #0093E7;
-    --color-blue-4: #7246FF;
+    --color-blue-4: #8032FF;
 
     /* Color: Red */
     --color-red-1: #FF4C5B;
@@ -188,18 +188,19 @@ footer {
 
 /* Filter Tags */
 .filter-tag-container {
-    border: solid 2px orange;
+    /* border: solid 2px orange; */
 
-    height: 6vh;
+    min-height: 6vh;
     width: 100%;
 
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: flex-start;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
 
-    margin: 25px 0;
+    margin: 30px 0;
 }
 
 .filter-tag {
@@ -212,11 +213,29 @@ footer {
 }
 
 .default-filter {
+    height: 100%;
+
     background: var(--color-blue-4);
+    color: var(--color-gray-1);
+    border-radius: 20px;
+
+    font-size: 0.85rem;
+    white-space: nowrap;
+
+    padding: 4px 12px;
 }
 
-.custom-filter {
+.custom-filter {    
+    height: 100%;
+
     background: var(--color-red-1);
+    color: var(--color-gray-1);
+    border-radius: 20px;
+
+    font-size: 0.85rem;
+    white-space: nowrap;
+
+    padding: 4px 12px;
 }
 
 /* News */
@@ -230,7 +249,7 @@ footer {
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
 
-    margin: 50px 0px;
+    margin-bottom: 50px;
 }
 
 .news-container .news-item {
