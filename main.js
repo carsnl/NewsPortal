@@ -1,20 +1,22 @@
-// Variables
-const apiKey = 'c1e2d1f5ad7e406391f916de7f829d78'
-const menu = document.querySelector(".menu-container");
-const hamburger = document.querySelector(".collapsed-menu")
-const searchQuery = document.querySelector(".search-query")
-const searchBtn = document.querySelector(".search-btn")
-const pageContent = document.querySelector(".page-content")
-const newsContainer = document.querySelector(".news-container")
-const newsStory = document.querySelectorAll(".news-item")
+// ==============================
+// GLOBAL VARIABLES
+// ==============================
 
-// Global variables
-let endpoint = 'everything';
-let filterSort = '';
-let filterLang = '';
-let filterStartDate = '';
-let filterEndDate = '';
-let filterCountry = '';
+// -----------------------
+// API Key
+// -----------------------
+const apiKey = 'c1e2d1f5ad7e406391f916de7f829d78'
+
+// -----------------------
+// Selectors
+// -----------------------
+const menu = document.querySelector(".menu-container");
+const hamburger = document.querySelector(".collapsed-menu");
+const searchQuery = document.querySelector(".search-query");
+const searchBtn = document.querySelector(".search-btn");
+const pageContent = document.querySelector(".page-content");
+const newsContainer = document.querySelector(".news-container");
+const newsStory = document.querySelectorAll(".news-item");
 
 // Filter
 const filterContainer = document.querySelector(".filter-container");
@@ -27,12 +29,23 @@ const filterCountryInput = document.querySelector("#country");
 const toastEmptySearch = document.querySelector(".toast-empty-search");
 const toastClose = document.querySelector(".toast-close");
 
-// Media query for menu @ (width: 190px)
-let menuChildren = document.querySelector('.menu-container').children;
+// -----------------------
+// Search Filters
+// -----------------------
+let endpoint = 'everything';
+let filterSort = '';
+let filterLang = '';
+let filterStartDate = '';
+let filterEndDate = '';
+let filterCountry = '';
 
-// ============================
-// Click Events
-// ============================
+// ==============================
+// EVENTS
+// ==============================
+
+// -----------------------
+// Click
+// -----------------------
 
 // Open hamburger menu
 hamburger.addEventListener('click', function() {
@@ -85,137 +98,143 @@ filterCloseBtn.addEventListener('click', function() {
 //     tagContainer.appendChild(country);
 // })
 
+
+// ==============================
+// FETCH NEWS FROM API
+// ==============================
+
+// Create news items (stories) from API call response
 function createNewsItem(data) {
     data.articles.forEach(article => {
-        // <article class="news-item">
-        //     <img src="" alt="">
-        //     <h3></h3>
-        //     <p></p>
-        // </article>
+        // Story parent
         let story = document.createElement('article');
-        story.classList.add('news-item')
-        // Story image
-        let img = document.createElement('img')
-        img.setAttribute('src', article.urlToImage)
-        img.setAttribute('alt', 'image')
+        story.classList.add('news-item');
 
-        // Story title
-        let a = document.createElement('a');
-        a.setAttribute('href', article.url);
-        a.setAttribute('target', '_blank')
-        a.textContent = article.title;
+        // Image
+        let img = document.createElement('img');
+        img.setAttribute('src', article.urlToImage);
+        img.setAttribute('alt', 'image');
 
-        // Story description
+        // Title
+        let title = document.createElement('a');
+        title.setAttribute('href', article.url);
+        title.setAttribute('target', '_blank');
+        title.textContent = article.title;
+
+        // Description
         let desc = document.createElement('p');
         desc.textContent = article.description;
 
         // Source
-        let source = document.createElement('h5')
+        let source = document.createElement('h5');
         source.textContent = article.source.name;
-        source.classList.add('news-source')
+        source.classList.add('news-source');
 
         // Date
-        let date = document.createElement('h5')
-        date.textContent = article.publishedAt.slice(0,10);
-        date.classList.add('news-date')
+        let date = document.createElement('h5');
+        date.textContent = article.publishedAt.slice(0,10); // Date only, no time
+        date.classList.add('news-date');
 
-        // Read more button
-        let readMoreBtn = document.createElement('a')
-        readMoreBtn.innerText = 'Read More'
+        // 'Read More' button
+        let readMoreBtn = document.createElement('a');
+        readMoreBtn.innerText = 'Read More';
 
         readMoreBtn.setAttribute('href', article.url);
         readMoreBtn.setAttribute('target', '_blank');
-
-        readMoreBtn.classList.add('read-more-btn')
+        readMoreBtn.classList.add('read-more-btn');
 
         // Story content (image, title, description)
-        let content = document.createElement('div')
-        content.classList.add('story-content')
+        let content = document.createElement('div');
+        content.classList.add('story-content');
         content.appendChild(img);
-        content.appendChild(a);
+        content.appendChild(title);
         content.appendChild(desc);
 
-
         // Story footer (source and date)
-        let footer = document.createElement('div')
-        footer.classList.add('story-footer')
+        let footer = document.createElement('div');
+        footer.classList.add('story-footer');
         footer.appendChild(source);
         footer.appendChild(date);
 
-        // Append story to news-container
+        // Append story content, footer and button to parent
         story.appendChild(content);
         story.appendChild(footer);
         story.appendChild(readMoreBtn);
 
-        // Mouseover event for 'Read More' button
+        // 'Read More' appears on hover
         story.addEventListener('mouseover', function() {
             readMoreBtn.classList.toggle('active');
         })
+
+        // 'Read More' disappears when cursor moves away
         story.addEventListener('mouseout', function() {
             readMoreBtn.classList.toggle('active');
         })
 
+        // Add story to news container
         newsContainer.appendChild(story);
-
     })
 }
-// TEMP: fetch posts
-searchBtn.addEventListener('click', function(e) {
-    e.preventDefault()
-    
+
+// Call API and fetch news upon user search
+function fetchNews() {
+    // Search query provided by user
     let query = searchQuery.value;
 
+    // Process search query
     if (query == '') {
-        toggleToastEmptySearch();
+        toggleToastEmptySearch();   // No search query provided, show toast to warn user
     } else {
-        // Search query provided
-        query = `?q=${query}`
+        query = `?q='${query}'`;    // Search query provided
     }
-
-    // Remove previous stories
-    removeAllChildNodes(newsContainer);
 
     // Remove error messages
     // TODO: improve code quality here
     const noResultsError = document.querySelector('.no-results-container');
     noResultsError.style.display = 'none';
 
-    console.log(`https://newsapi.org/v2/${endpoint}${query}${filterSort}${filterLang}${filterStartDate}${filterEndDate}${filterCountry}&apiKey=${apiKey}`)
+    // Remove previous stories
+    removeAllChildNodes(newsContainer);
 
+    // Call API
     fetch(`https://newsapi.org/v2/${endpoint}?q=${searchQuery.value}${filterSort}${filterLang}${filterStartDate}${filterEndDate}${filterCountry}&apiKey=${apiKey}`)
         .then((response) => response.json())
         .then((data) => {
             try {
-                createNewsItem(data);
+                newsContainer.style.display = 'grid'; // Load news container
+                createNewsItem(data);   // Create news items (stories)
             } catch(e) {
-                noResultsError.style.display = 'flex';
+                newsContainer.style.display = 'none'; // Hide news container
+                noResultsError.style.display = 'flex';  // Show no results error page
             }
-            
-            // If no results, show no results error page
-            // const noResultsError = document.querySelector('.no-results-container');
-            // console.log(noResultsError);
-            // console.log(newsContainer.childElementCount)
-            // if (newsContainer.childElementCount === 0){
-            //     console.log('showing')
-            //     noResultsError.style.display = 'flex';
-            // } else if (newsContainer.childElementCount > 0 && noResultsError.classList.contains('show')) {
-            //     console.log('hiding')
-            //     noResultsError.style.display = 'none';
-            // }
         })
 
-    // Clear search field
+    // Clear search input
     searchQuery.value = '';
-})
+}
+
+// Fetch on button press
+searchBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    fetchNews() ;
+});
+
+// Fetch on 'Enter' key press
+searchQuery.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        searchBtn.click();
+    }
+});
 
 // ============================
-// Input Events
+// SEARCH FILTER
 // ============================
 
-// Detect if user has selected a specific country
+const countryNotice = document.querySelector('.country-select-notice');
+const filterForm = document.querySelector('.filter-drop-down-container');
+
+// Detects if user has selected a specific country, then shows information notification
 filterCountryInput.addEventListener('input', function(e) {
-    let countryNotice = document.querySelector('.country-select-notice');
-    let filterForm = document.querySelector('.filter-drop-down-container');
 
     // If specific country selected (default All is ''), prompt user
     if (e.target.value != '') {
@@ -236,11 +255,51 @@ filterCountryInput.addEventListener('input', function(e) {
     }
 })
 
+// Apply filters
+filterApplyBtn.addEventListener('click', function() {
+    // Sort
+    filterSort = (document.getElementById('sort').value).toString();
+
+    // Language
+    filterLang = (document.getElementById('language').value).toString();
+
+    // Date (to be validated)
+    const checkStartDate = (document.querySelector("#start-date")).value;
+    const checkEndDate = (document.querySelector("#end-date")).value;
+
+    // Validate date
+    if (validateDate(checkStartDate, checkEndDate)) {
+        if (checkStartDate != '') {
+            filterStartDate = `&from=${checkStartDate}`; // Only start date provided (valid)
+        }
+        if (checkEndDate != '') {
+            filterEndDate = `&to=${checkEndDate}`; // Only end date provided (valid)
+        }   
+    } else {
+        alert('Check dates.') // Invalid
+        // TODO: add toast
+    }
+
+    // Country
+    filterCountry = (document.getElementById('country').value).toString();
+
+    // If a specific country selected (not 'All')
+    // NOTE: News API does not support 'everything' endpoint for specific countries
+    if (filterCountry !== '') {
+        endpoint = 'top-headlines';
+    }
+
+    // Close filter window
+    filterContainer.classList.toggle('active');
+
+    // TODO: add toast
+}) 
+
 // ============================
-// Scroll Events
+// SCROLL TO TOP
 // ============================
 
-let scrollToTopBtn = document.getElementById('scroll-to-top-btn')
+const scrollToTopBtn = document.getElementById('scroll-to-top-btn')
 
 // Shows a button that allows user to scroll back to top of the page
 function showScrollToTopBtn() {
@@ -257,19 +316,23 @@ function scrollToTop() {
     window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
-// Event listeners
+// Detects scroll event
 window.addEventListener('scroll', showScrollToTopBtn);
 scrollToTopBtn.addEventListener('click', scrollToTop);
 
 // ============================
-// Toast Notifications
+// TOAST NOTIFICATIONS
 // ============================
 
+// Empty search query provided
 function toggleToastEmptySearch() {
+    // Only appears if no particular country is selected
+    // For specific countries, no search query is recommended to user for best results
     if (filterCountry == ''){
         toastEmptySearch.classList.toggle('active');
+        // Disappear after 3.5s
         setTimeout(() => {
-            // Check if toast was previously closed
+            // Check if toast was previously closed by 'X' button
             if (toastEmptySearch.classList.contains('active')) {
                 toastEmptySearch.classList.toggle('active');
             }
@@ -277,53 +340,17 @@ function toggleToastEmptySearch() {
     }    
 }
 
+// Close toast prematurely using 'X' button
 toastClose.addEventListener('click', function() {
     let parent = toastClose.parentElement.parentElement;
     parent.classList.toggle('active');
 }) 
 
-// Filter apply button
-filterApplyBtn.addEventListener('click', function() {
-    // Sort
-    filterSort = (document.getElementById('sort').value).toString();
-
-    // Selected language and assign to global variable
-    filterLang = (document.getElementById('language').value).toString();
-
-    // Date
-    const localStartDate = (document.querySelector("#start-date")).value;
-    const localEndDate = (document.querySelector("#end-date")).value;
-
-    if (validateDate(localStartDate, localEndDate)) {
-        if (localStartDate != '') {
-            filterStartDate = `&from=${localStartDate}`;
-        }
-        if (localEndDate != '') {
-            filterEndDate = `&to=${localEndDate}`;
-        }   
-    } else {
-        alert('Check dates.')
-    }
-
-    // Country
-    filterCountry = (document.getElementById('country').value).toString();
-
-    // If a specific country selected (not all)
-    // News API does not support 'everything' endpoint for specific countries
-    if (filterCountry !== '') {
-        endpoint = 'top-headlines';
-    }
-
-    filterContainer.classList.toggle('active');
-
-    // TODO: add toast
-}) 
-
 // ============================
-// Utility Functions
+// UTILITY METHODS
 // ============================
 
-// Remove all child nodes of a parent element. Used when new search query provided.
+// Remove all child nodes of a parent element.
 function removeAllChildNodes(parent) {
     while (parent.firstElementChild) {
         console.log(parent.firstElementChild);
@@ -331,15 +358,18 @@ function removeAllChildNodes(parent) {
     }
 }
 
-// Date input validation
+// -----------------------
+// Input Validation
+// -----------------------
+
+// Date 
 function validateDate(start, end) {
-    // End date >= start date
-    // Two dates available
     if (end != '' && start != '') {
-        return end >= start;
+        // Valid: Two dates available, then (end date >= start date)
+        return end >= start; 
     } else {
-        // Only 'from' or 'to' provided
-        return true
+        // Valid: only 'from' or 'to' provided
+        return true;
     }
 }
     

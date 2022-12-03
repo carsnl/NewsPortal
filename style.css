@@ -1,6 +1,5 @@
 /* Global style */
 :root {
-    z-index: 100;
     /* Colors */
     /* Shade: Gray */
     --color-gray-1: #FFF;
@@ -17,7 +16,7 @@
     --color-red-1: #FF4C5B;
     --color-red-2: #F00000;
 
-    --top-margin: 70px;  
+    --top-margin: 90px;  
     
     /* Font */
     font-family: 'Roboto', sans-serif;
@@ -93,7 +92,7 @@ a:visited {
 /* Page */
 .page-container {
     /* border: 2px solid grey; */
-    margin: var(--top-margin) auto;
+    margin: var(--top-margin) auto 30px auto;
     padding: 10px 10px;
 
     width: 70vw;
@@ -129,8 +128,7 @@ footer {
 
     background: var(--color-gray-3);
     color: var(--color-gray-1);
-    border-bottom: 2.5px solid black;
-    box-shadow: 0px 1px 3px black;
+    box-shadow: 0px 1px 1.5px var(--color-gray-3);
 
     position: fixed;
     z-index: 1;
@@ -138,6 +136,7 @@ footer {
 
     padding: 0 40px;
     margin-top: 0;
+    margin-bottom: 50px;
 }
 
 .navbar-container header > a {
@@ -156,7 +155,7 @@ footer {
 /* Search */
 .search-container {
     /* border: solid 2px red; */
-    min-width: 100%;
+    width: 100%;
     height: 9.4vh;
 
     display: flex;
@@ -164,7 +163,9 @@ footer {
     justify-content: center;
     align-items: center;
 
-    gap: 6px;
+    gap: 10px;
+
+    margin-top: 10px;
 }
 
 .search-container .search-bar {
@@ -172,7 +173,6 @@ footer {
     height: 100%;
 
     flex-grow: 1;
-
 }
 
 .search-container .search-bar > input {
@@ -180,41 +180,10 @@ footer {
     width: 100%;
     height: 100%;
 
-    border-radius: 10px;
+    border-radius: 100px;
     font-size: 1.3rem;
 
-    padding-left: 12px;
-}
-
-/* Menu */
-.menu-container {
-    /* border: 2px solid orange; */
-    height: 0;
-    overflow: hidden;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-.menu-container.active {
-    height: auto;
-
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.menu-item {
-    width: 100%;
-    text-align: center;
-    /* border: 2px solid yellow; */
-    border-bottom: solid 1px black;
-
-    padding: 10px 0px;
+    padding-left: 20px;
 }
 
 /* Filter Tags */
@@ -261,8 +230,7 @@ footer {
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
 
-    margin: 20px 0px;
-    padding-bottom: 100px;
+    margin: 50px 0px;
 }
 
 .news-container .news-item {
@@ -622,7 +590,7 @@ a.read-more-btn:hover, a.read-more-btn:visited {
     width: 50px;
     height: 50px;
 
-    display: block;
+    display: none;
 
     position: fixed;
     bottom: 35px;
@@ -665,7 +633,7 @@ a.read-more-btn:hover, a.read-more-btn:visited {
 /* ERRORS */
 .error {
     width: 100%;
-    height: 350px;
+    height: 330px;
 
     display: none;
     flex-direction: column;
