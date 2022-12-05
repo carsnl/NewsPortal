@@ -40,6 +40,23 @@ body {
     position: relative;
 }
 
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+}
+
+h3 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 1.2rem;
+}
+
+h5 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 0.9rem;
+}
+
 a {
     font-family: 'Montserrat', sans-serif;
     text-decoration: none;
@@ -50,16 +67,10 @@ a:visited {
 }
 
 .btn {
-    border: solid 2.5px var(--color-gray-3);
-    height: 100%;
+    background: none;
+    border: none;
 
-    background: var(--color-gray-3);
-    color: var(--color-gray-1);
-    font-size: 1.5rem;
-
-    padding: 12px;
-
-    border-radius: 10px;
+    font-size: 1.4rem;
 
     cursor: pointer;
 
@@ -67,7 +78,8 @@ a:visited {
 }
 
 .btn:hover {
-    color: var(--color-blue-2);
+    color: var(--color-blue-3);
+    text-shadow: 0px 0px 4px var(--color-blue-2);
 }
 
 .btn-2 {
@@ -95,7 +107,46 @@ a:visited {
     margin: var(--top-margin) auto 30px auto;
     padding: 10px 10px;
 
+    height: 80vh;
     width: 70vw;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+}
+
+.welcome-msg {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+
+    margin-bottom: 20px;
+
+    transition: all 0.2s ease-in-out;
+}
+
+.welcome-msg .welcome-header {
+    font-size: 3rem;
+    letter-spacing: 1.1px;
+}
+
+.welcome-msg .welcome-text {
+    letter-spacing: 1.05px;
+}
+
+.welcome-msg .welcome-text i {
+    font-size: 0.95rem;
+}
+
+.welcome-msg.with-results {
+    height: 0;
+    overflow: hidden;
+}
+
+.page-container.with-results {
+    height: auto;
 }
 
 /* Footer */
@@ -172,6 +223,8 @@ footer {
     /* border: solid 2px blue; */
     height: 100%;
 
+    position: relative;
+
     flex-grow: 1;
 }
 
@@ -180,11 +233,51 @@ footer {
     width: 100%;
     height: 100%;
 
+    background: none;
     border-radius: 100px;
     font-size: 1.3rem;
 
-    padding-left: 20px;
+    padding-left: 55px;
+    padding-right: 86px;
 }
+
+input:focus::placeholder {
+    /* Remove placeholder when search bar in focus */
+    color: transparent;
+}
+
+.search-bar-btn {
+    visibility: hidden;
+    position: absolute;
+
+    color: var(--color-gray-2);
+
+    top: 16px;
+    z-index: 1;
+}
+
+.search-bar:hover .search-bar-btn {
+    visibility: visible;
+}
+
+.search-btn {
+    visibility: visible;
+    color: var(--color-gray-3);
+    left: 25px;
+}
+
+.filter-btn {
+    font-size: 1.45rem;
+    right: 52px;
+}
+
+.search-clear-btn {
+    visibility: hidden;
+    font-size: 1.5rem;
+    right: 24px;
+    
+}
+
 
 /* Filter Tags */
 .filter-tag-container {
@@ -193,7 +286,7 @@ footer {
     min-height: 6vh;
     width: 100%;
 
-    display: flex;
+    display: none;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
@@ -203,18 +296,11 @@ footer {
     margin: 30px 0;
 }
 
-.filter-tag {
-    border-radius: 8px;
-
-    font-size: 0.75rem;
-    color: var(--color-gray-1);
-
-    padding: 4px 12px;
+.filter-tag-container.show {
+    display: flex;
 }
 
-.default-filter {
-    height: 100%;
-
+.filter-tag-container .default-filter, .custom-filter {
     background: var(--color-blue-4);
     color: var(--color-gray-1);
     border-radius: 20px;
@@ -222,20 +308,17 @@ footer {
     font-size: 0.85rem;
     white-space: nowrap;
 
-    padding: 4px 12px;
+    padding: 6px 12px;
+
+    cursor: default;
+}
+
+.default-filter {
+    background: var(--color-blue-4);
 }
 
 .custom-filter {    
-    height: 100%;
-
     background: var(--color-red-1);
-    color: var(--color-gray-1);
-    border-radius: 20px;
-
-    font-size: 0.85rem;
-    white-space: nowrap;
-
-    padding: 4px 12px;
 }
 
 /* News */
@@ -263,10 +346,6 @@ footer {
     justify-content: space-between;
 
     border-bottom: double 4px var(--color-gray-3);
-}
-
-.news-item a:hover {
-
 }
 
 .news-container img {
@@ -667,4 +746,17 @@ a.read-more-btn:hover, a.read-more-btn:visited {
 
 .error h1 {
     font-size: 1.6rem;
+}
+
+/* Close Button ('X') */
+.close-btn .fa-xmark {
+    background: none;
+    color: var(--color-gray-2);
+}
+
+.close-btn .fa-xmark:hover {
+    color: var(--color-red-2);
+    text-shadow: 0px 0px 3px var(--color-red-1);
+
+    cursor: pointer;
 }

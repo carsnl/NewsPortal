@@ -10,6 +10,7 @@ const apiKey = 'c1e2d1f5ad7e406391f916de7f829d78'
 // -----------------------
 // Selectors
 // -----------------------
+const pageContainer = document.querySelector('.page-container');
 const menu = document.querySelector(".menu-container");
 const hamburger = document.querySelector(".collapsed-menu");
 const searchQuery = document.querySelector(".search-query");
@@ -39,6 +40,26 @@ let filterStartDate = '';
 let filterEndDate = '';
 let filterCountry = '';
 
+// -----------------------
+// Search Topic Placeholders
+// -----------------------
+searchPlaceholder = [
+    'football',
+    'fishing',
+    'Europe',
+    'games',
+    'books',
+    'race car',
+    'Marvel Movies',
+    'Olympic Games',
+]
+
+// Provide random placeholder on start-up
+searchQuery.setAttribute(
+    'placeholder', 
+    searchPlaceholder[Math.floor(Math.random()*searchPlaceholder.length)],
+    );
+
 // ==============================
 // EVENTS
 // ==============================
@@ -50,6 +71,21 @@ let filterCountry = '';
 // Open hamburger menu
 hamburger.addEventListener('click', function() {
     menu.classList.toggle('active');
+});
+
+// Clear search bar
+let searchClearBtn = document.querySelector('.search-clear-btn');
+searchClearBtn.addEventListener('click', function() {
+    if (searchQuery.value != '') {
+        // Clear search bar
+        searchQuery.value = ''
+
+        // Set a new random placeholder
+        searchQuery.setAttribute(
+            'placeholder', 
+            searchPlaceholder[Math.floor(Math.random()*searchPlaceholder.length)],
+        );
+    }
 });
 
 // Open filter menu
@@ -68,6 +104,24 @@ const tagContainer = document.querySelector('.filter-tag-container')
 searchBtn.addEventListener('click', function() {
     // Clear all tags
     removeAllChildNodes(tagContainer);
+
+    // Show tag container when loading for the first time
+    if (!tagContainer.classList.contains('show')) {
+        tagContainer.classList.toggle('show');
+    }
+
+    // Change page layout on first search
+    if (!pageContainer.classList.contains('with-results')) {
+        // Expand page container
+        pageContainer.classList.toggle('with-results');
+        // Remove welcome message and shift search bar up
+        let message = document.querySelector('.welcome-msg')
+        // message.remove();
+        message.classList.toggle('with-results');
+
+        // TODO: animate "slideup" after removing message
+    }
+    
 
     // Add tags
     let queryTag = document.createElement('p');
@@ -267,9 +321,6 @@ function fetchNews() {
                 noResultsError.style.display = 'flex';  // Show no results error page
             }
         })
-
-    // Clear search input
-    searchQuery.value = '';
 }
 
 // Fetch on button press
@@ -351,7 +402,8 @@ filterApplyBtn.addEventListener('click', function() {
     // Close filter window
     filterContainer.classList.toggle('active');
 
-    // TODO: add toast
+    // Search for news
+    searchBtn.click();
 }) 
 
 // ============================
@@ -431,5 +483,7 @@ function validateDate(start, end) {
         return true;
     }
 }
+
+
 
 

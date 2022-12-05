@@ -38,18 +38,35 @@
 
     <!-- Display Content -->
     <div class="page-container">
+        <!-- Welcome Message (No searches made) -->
+        <section class="welcome-msg">
+            <h1 class="welcome-header">Hello there!</h1>
+            <h3 class="welcome-text">Begin searching <i class="fa-solid fa-magnifying-glass"></i> by providing a topic.</h5>
+            <h3 class="welcome-text">Use filters <i class="fa-solid fa-list-check"></i> to customise your searches.</h5>
+        </section>
+
         <!-- Search -->
         <section class="search-container">
             <div class="search-bar">
+                <!-- Input -->
                 <label for="search-input"></label>
-                <input type="text" name="search-input" id="search-input" placeholder="Search for a topic" class="search-query">
+                <input type="text" name="search-input" id="search-input" class="search-query">
+
+                <!-- Filter -->
+                <button type="menu" class="filter-btn search-bar-btn btn">
+                    <i class="fa-solid fa-list-check"></i>
+                </button>
+
+                <!-- Search -->
+                <button type="submit" class="search-btn search-bar-btn btn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+
+                <!-- Clear Search -->
+                <button class="search-clear-btn close-btn search-bar-btn btn">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
             </div>
-            <button type="menu" class="filter-btn btn">
-                <i class="fa-solid fa-list-check"></i>
-            </button>
-            <button type="submit" class="search-btn btn">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
         </section>
     
         <!-- Filter Tags -->
@@ -79,7 +96,7 @@
             <div class="toast-text">
                 <p>Empty or broad search topics may return no results.</p> 
             </div>
-            <div class="toast-close">
+            <div class="toast-close close-btn">
                 <i class="fa-solid fa-xmark"></i>
             </div>
         </div>
@@ -89,7 +106,7 @@
     <!-- Filter -->
     <div class="filter-container container">
         <h3 class="filter-title">Filters</h3>
-        <div class="filter-close-btn">
+        <div class="filter-close-btn close-btn">
             <i class="fa-solid fa-xmark"></i>
         </div>
         <!-- Notices -->
