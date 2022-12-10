@@ -8,6 +8,17 @@
 const apiKey = 'c1e2d1f5ad7e406391f916de7f829d78'
 
 // -----------------------
+// News Sources for Quick Search
+// -----------------------
+const sources = ['reuters', 'bbc-news','axios','bloomberg','al-jazeera-english','associated-press','business-insider','cnn','google-news','time',]
+
+// -----------------------
+// Response
+// -----------------------
+let result;
+let resultReturned;
+
+// -----------------------
 // Selectors
 // -----------------------
 const pageContainer = document.querySelector('.page-container');
@@ -34,11 +45,13 @@ const toastClose = document.querySelector(".toast-close");
 // Search Filters
 // -----------------------
 let endpoint = 'everything';
-let filterSort = '';
+let filterSort = '&sortBy=publishedAt';
 let filterLang = '';
 let filterStartDate = '';
 let filterEndDate = '';
 let filterCountry = '';
+let filterSources = '';
+let page = 1;
 
 // -----------------------
 // Search Topic Placeholders
@@ -134,9 +147,11 @@ searchBtn.addEventListener('click', function() {
     let j;
 
     // Query
-    queryTag.textContent = searchQuery.value;
-    queryTag.classList.add('custom-filter')
-    tagContainer.appendChild(queryTag);
+    if (searchQuery.value != '') {
+        queryTag.textContent = searchQuery.value;
+        queryTag.classList.add('custom-filter')
+        tagContainer.appendChild(queryTag);
+    }
 
     // Sort
     let sortField = document.querySelector('#sort');
@@ -203,12 +218,14 @@ searchBtn.addEventListener('click', function() {
     countryTag.classList.add('default-filter')
     tagContainer.appendChild(countryTag);
 
-    // let array = [sortField, langField];
-    // console.log(array)
+    console.log(tagContainer.children);
 
-    // for (j = 0; j < array.length; j++) {
-    //     console.log(array[j].childElementCount);
-    // }
+    // Open filter window when a tag is clicked
+    for (let tag of tagContainer.children) {
+        tag.addEventListener('click', function() {
+            filterContainer.classList.toggle('active');
+        })
+    }
 })
 
 
@@ -217,116 +234,150 @@ searchBtn.addEventListener('click', function() {
 // ==============================
 
 // Create news items (stories) from API call response
-function createNewsItem(data) {
-    data.articles.forEach(article => {
-        // Story parent
-        let story = document.createElement('article');
-        story.classList.add('news-item');
+function createNewsItem(article) {
+    // Story parent
+    let story = document.createElement('article');
+    story.classList.add('news-item');
 
-        // Image
-        let img = document.createElement('img');
-        img.setAttribute('src', article.urlToImage);
-        img.setAttribute('alt', 'image');
+    // Image
+    let img = document.createElement('img');
+    img.setAttribute('src', article.urlToImage);
+    img.setAttribute('alt', 'image');
 
-        // Title
-        let title = document.createElement('a');
-        title.setAttribute('href', article.url);
-        title.setAttribute('target', '_blank');
-        title.textContent = article.title;
+    // Title
+    let title = document.createElement('a');
+    title.setAttribute('href', article.url);
+    title.setAttribute('target', '_blank');
+    title.textContent = article.title;
 
-        // Description
-        let desc = document.createElement('p');
-        desc.textContent = article.description;
+    // Description
+    let desc = document.createElement('p');
+    desc.textContent = article.description;
 
-        // Source
-        let source = document.createElement('h5');
-        source.textContent = article.source.name;
-        source.classList.add('news-source');
+    // Source
+    let source = document.createElement('h5');
+    source.textContent = article.source.name;
+    source.classList.add('news-source');
 
-        // Date
-        let date = document.createElement('h5');
-        date.textContent = article.publishedAt.slice(0,10); // Date only, no time
-        date.classList.add('news-date');
+    // Date
+    let date = document.createElement('h5');
+    date.textContent = article.publishedAt.slice(0,10); // Date only, no time
+    date.classList.add('news-date');
 
-        // 'Read More' button
-        let readMoreBtn = document.createElement('a');
-        readMoreBtn.innerText = 'Read More';
+    // 'Read More' button
+    let readMoreBtn = document.createElement('a');
+    readMoreBtn.innerText = 'Read More';
 
-        readMoreBtn.setAttribute('href', article.url);
-        readMoreBtn.setAttribute('target', '_blank');
-        readMoreBtn.classList.add('read-more-btn');
+    readMoreBtn.setAttribute('href', article.url);
+    readMoreBtn.setAttribute('target', '_blank');
+    readMoreBtn.classList.add('read-more-btn');
 
-        // Story content (image, title, description)
-        let content = document.createElement('div');
-        content.classList.add('story-content');
-        content.appendChild(img);
-        content.appendChild(title);
-        content.appendChild(desc);
+    // Story content (image, title, description)
+    let content = document.createElement('div');
+    content.classList.add('story-content');
+    content.appendChild(img);
+    content.appendChild(title);
+    content.appendChild(desc);
 
-        // Story footer (source and date)
-        let footer = document.createElement('div');
-        footer.classList.add('story-footer');
-        footer.appendChild(source);
-        footer.appendChild(date);
+    // Story footer (source and date)
+    let footer = document.createElement('div');
+    footer.classList.add('story-footer');
+    footer.appendChild(source);
+    footer.appendChild(date);
 
-        // Append story content, footer and button to parent
-        story.appendChild(content);
-        story.appendChild(footer);
-        story.appendChild(readMoreBtn);
+    // Append story content, footer and button to parent
+    story.appendChild(content);
+    story.appendChild(footer);
+    story.appendChild(readMoreBtn);
 
-        // 'Read More' appears on hover
-        story.addEventListener('mouseover', function() {
-            readMoreBtn.classList.toggle('active');
-        })
-
-        // 'Read More' disappears when cursor moves away
-        story.addEventListener('mouseout', function() {
-            readMoreBtn.classList.toggle('active');
-        })
-
-        // Add story to news container
-        newsContainer.appendChild(story);
+    // 'Read More' appears on hover
+    story.addEventListener('mouseover', function() {
+        readMoreBtn.classList.toggle('active');
     })
+
+    // 'Read More' disappears when cursor moves away
+    story.addEventListener('mouseout', function() {
+        readMoreBtn.classList.toggle('active');
+    })
+
+    // Add story to news container
+    newsContainer.appendChild(story);
 }
 
-// Call API and fetch news upon user search
-function fetchNews() {
-    // Search query provided by user
-    let query = searchQuery.value;
+// Calls API and attempts to return data
+async function fetchNews(isNewSearch) {
+    const fetchMoreBtnContainer = document.querySelector('#fetch-more-btn-container');
+    const noResultsError = document.querySelector('.no-results-container.error');
 
-    // Process search query
-    if (query == '') {
-        toggleToastEmptySearch();   // No search query provided, show toast to warn user
+    // Check if a query was provided
+    let queryProvided = validateQuery(searchQuery.value);
+    if (queryProvided) {
+        query = `&q='${searchQuery.value}'`;    // Search query provided
     } else {
-        query = `?q='${query}'`;    // Search query provided
+        query = '';
+        toggleToastEmptySearch();   // No search query provided, show toast to warn user
     }
 
-    // Remove error messages
-    // TODO: improve code quality here
-    const noResultsError = document.querySelector('.no-results-container');
-    noResultsError.style.display = 'none';
+    console.log((`https://newsapi.org/v2/${endpoint}?apiKey=${apiKey}${query}${filterSort}${filterLang}${filterStartDate}${filterEndDate}${filterCountry}${filterSources}&page=${page}`))
 
-    // Remove previous stories
-    removeAllChildNodes(newsContainer);
-
-    // Call API
-    fetch(`https://newsapi.org/v2/${endpoint}?q=${searchQuery.value}${filterSort}${filterLang}${filterStartDate}${filterEndDate}${filterCountry}&apiKey=${apiKey}`)
+    fetch(`https://newsapi.org/v2/${endpoint}?apiKey=${apiKey}${query}${filterSort}${filterLang}${filterStartDate}${filterEndDate}${filterCountry}${filterSources}&page=${page}`)
         .then((response) => response.json())
         .then((data) => {
-            try {
+            result = data;
+            resultReturned = checkResponse(data);    // Confirm if successfull response has results
+
+            // TODO: style changes are in different functions
+
+            if (resultReturned) {
                 newsContainer.style.display = 'grid'; // Load news container
-                createNewsItem(data);   // Create news items (stories)
-            } catch(e) {
+                if (isNewSearch) {
+                    clearPage();
+                    fetchMoreBtnContainer.style.display = 'block'; // Show see more button
+                }
+                setupPage();
+            } else if (!resultReturned) {
                 newsContainer.style.display = 'none'; // Hide news container
                 noResultsError.style.display = 'flex';  // Show no results error page
+                fetchMoreBtn.style.display = 'none'; // Hide see more button
             }
         })
+}
+
+// Fetch more button press
+let fetchMoreBtn = document.querySelector('#fetch-more-btn');
+
+fetchMoreBtn.addEventListener('click', async function() {
+    page += 1;
+    fetchNews(false);
+    setTimeout(function() {
+        if (!result.articles.length > 0) {
+            toggleToastNoMoreResults();
+            fetchMoreBtn.style.display = 'none';
+        }    
+    }, 1000)
+});
+
+function clearPage() {
+    page = 1;   // back to first page of results
+    removeAllChildNodes(newsContainer);
+
+    // Remove error messages
+    const noResultsError = document.querySelector('.no-results-container');
+    noResultsError.style.display = 'none';
+}
+
+function setupPage() {
+    // Create news items
+    result.articles.forEach(article => {
+        createNewsItem(article);
+    });
 }
 
 // Fetch on button press
 searchBtn.addEventListener('click', function(e) {
     e.preventDefault();
-    fetchNews() ;
+    // isNewSearch = true
+    fetchNews(true) ;
 });
 
 // Fetch on 'Enter' key press
@@ -403,7 +454,9 @@ filterApplyBtn.addEventListener('click', function() {
     filterContainer.classList.toggle('active');
 
     // Search for news
-    searchBtn.click();
+    if (pageContainer.classList.contains('with-results')) {
+        searchBtn.click();  // Nothing to filter yet on home page
+    }
 }) 
 
 // ============================
@@ -451,11 +504,70 @@ function toggleToastEmptySearch() {
     }    
 }
 
+// No more results returned from 'See More' button
+function toggleToastNoMoreResults() {
+    let toastNoMoreResults = document.querySelector('.toast-no-more-results');
+    console.log(toastNoMoreResults);
+    toastNoMoreResults.classList.toggle('active');
+    // Disappear after 3.5s
+    setTimeout(() => {
+        // Check if toast was previously closed by 'X' button
+        if (toastNoMoreResults.classList.contains('active')) {
+            toastNoMoreResults.classList.toggle('active');
+        }
+    }, 3500);  
+}
+
 // Close toast prematurely using 'X' button
 toastClose.addEventListener('click', function() {
     let parent = toastClose.parentElement.parentElement;
     parent.classList.toggle('active');
 }) 
+
+// ============================
+// QUICK FILTERS
+// ============================
+const quickFilterNewBtn = document.querySelector('#quick-filter-new');
+const quickFilterTrendingBtn = document.querySelector('#quick-filter-trending');
+
+// quickFilterNewBtn.addEventListener('click', function() {
+//     // Reset custom filters and set to premade filters
+//     // New: Top-headlines since yesterday
+
+//     endpoint = 'top-headlines';
+//     filterSort = '';
+//     filterStartDate = `&from=${getDateNDaysAgo(1)}`;
+//     filterEndDate = '';
+//     filterCountry = '';
+//     filterSources = `&sources=${sources.toString()}`;
+//     page = 1;
+
+//     // TODO: query and quick filters cannot be used together due to endpoints
+//     // Maybe remove 'Sort By' in filters then set endpoint to everything, give 'top-headlines' its own quick filter item
+//     // TODO: remove class after deselected
+//     quickFilterNewBtn.classList.add('selected');
+
+//     searchBtn.click();
+
+//     endpoint = 'everything';
+// })
+
+// quickFilterTrendingBtn.addEventListener('click', function() {
+//     // Reset custom filters and set to premade filters
+//     // New: Popular since 3 days ago
+
+//     endpoint = 'top-headlines';
+//     filterSort = '&sortBy=popularity';
+//     filterStartDate = `&from=${getDateNDaysAgo(5)}`;
+//     filterEndDate = '';
+//     filterCountry = '';
+//     filterSources = `&sources=${sources.toString()}`;
+//     page = 1;
+
+//     quickFilterTrendingBtn.classList.add('selected');
+
+//     searchBtn.click();
+// })
 
 // ============================
 // UTILITY METHODS
@@ -464,10 +576,22 @@ toastClose.addEventListener('click', function() {
 // Remove all child nodes of a parent element.
 function removeAllChildNodes(parent) {
     while (parent.firstElementChild) {
-        console.log(parent.firstElementChild);
         parent.removeChild(parent.firstElementChild);
     }
 }
+
+// Get yesterday's date
+function getDateNDaysAgo(daysAgo) {
+    let yesterday = new Date()
+    yesterday.setDate(yesterday.getDate() - daysAgo);
+
+    day = (`${('0' + yesterday.getDate()).slice(-2)}`);
+    month = (`${('0' + (yesterday.getMonth() + 1)).slice(-2)}`);
+    year = (`${yesterday.getFullYear()}`);
+
+    return `${year}-${month}-${day}`
+}
+
 
 // -----------------------
 // Input Validation
@@ -483,6 +607,29 @@ function validateDate(start, end) {
         return true;
     }
 }
+
+// Search query
+function validateQuery(query) {
+    // Process search query
+    console.log(query);
+    if (query == '') {
+        return false;   // No search query provided, show toast to warn user
+    } else {
+        return true;    // Search query provided
+    }
+}
+
+// Check if a response with results was returned (no empty responses)
+function checkResponse(data) {
+    try {
+        data.articles.length;
+        return true;
+    } catch {
+        return false;
+    }
+}
+
+
 
 
 

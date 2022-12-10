@@ -68,6 +68,12 @@
                 </button>
             </div>
         </section>
+
+        <!-- Quick Filters -->
+        <!-- <section class="quick-filter-container">
+            <h5 class="quick-filter-item btn" id="quick-filter-new">New</h5>
+            <h5 class="quick-filter-item btn" id="quick-filter-trending">Trending</h5>
+        </section> -->
     
         <!-- Filter Tags -->
         <section class="section filter-tag-container">
@@ -84,17 +90,39 @@
         <!-- News Articles -->
         <section class="news-container">
             <!-- News Story -->
+            <!-- Fetch More -->
         </section>
+
+        <div id="fetch-more-btn-container">
+            <button id="fetch-more-btn">
+                <h5>See More</h6>
+            </button>
+        </div>
 
     <!-- Toast Notifications -->
     <!-- Empty search query -->
-    <div class="toast-empty-search toast-container toast">
+    <div class="toast-empty-search toast-container toast-warn toast">
         <div class="toast-content">
             <div class="toast-img">
                 <i class="fa-solid fa-circle-exclamation"></i>
             </div>
             <div class="toast-text">
                 <p>Empty or broad search topics may return no results.</p> 
+            </div>
+            <div class="toast-close close-btn">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- No more results to show (See More) -->
+    <div class="toast-no-more-results toast-container toast-info toast">
+        <div class="toast-content">
+            <div class="toast-img">
+                <i class="fa-solid fa-circle-exclamation"></i>
+            </div>
+            <div class="toast-text">
+                <p>No more results to show.</p> 
             </div>
             <div class="toast-close close-btn">
                 <i class="fa-solid fa-xmark"></i>
@@ -121,10 +149,9 @@
             <div class="filter-drop-down-item">
                 <label for="sort">Sort By</label>
                 <select name="sort" id="sort">
-                    <option value="">No Sorting</option>
-                    <option value="&sortBy=publishedAt">Most Recent</option>
+                    <option value="&sortBy=publishedAt">New</option>
                     <option value="&sortBy=relevancy">Relevance</option>
-                    <option value="&sortBy=popularity">Popularity</option>
+                    <option value="&sortBy=popularity">Popular</option>
                 </select>
             </div>
             <!-- Language -->
@@ -183,8 +210,6 @@
         <i class="fa-solid fa-angles-up"></i>
         <p class="tooltip">Back to top</p>
     </button>
-
-    
 
     <!-- Footer -->
     <footer>
