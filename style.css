@@ -377,6 +377,15 @@ input:focus::placeholder {
     justify-content: space-between;
 
     border-bottom: double 4px var(--color-gray-3);
+
+    transform: translateY(30px);
+    opacity: 20%;
+    transition: all 1s ease;
+}
+
+.news-item.entry{
+    transform: translateY(0px);
+    opacity: 100%;
 }
 
 .news-container img {
@@ -727,7 +736,7 @@ a.read-more-btn:hover, a.read-more-btn:visited {
     display: none;
 
     position: fixed;
-    bottom: 35px;
+    bottom: 45px;
     right: 3.5%;
 
     font-size: 1.3rem;

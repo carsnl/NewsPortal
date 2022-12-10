@@ -302,6 +302,12 @@ function createNewsItem(article) {
 
     // Add story to news container
     newsContainer.appendChild(story);
+
+    // Each story "Scrolls in" animation
+    setTimeout(function() {
+        story.classList.add('entry');
+    }, 1)
+    
 }
 
 // Calls API and attempts to return data
