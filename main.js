@@ -239,16 +239,23 @@ function createNewsItem(article) {
     let story = document.createElement('article');
     story.classList.add('news-item');
 
-    // Image
-    let img = document.createElement('img');
-    img.setAttribute('src', article.urlToImage);
-    img.setAttribute('alt', 'image');
-
     // Title
     let title = document.createElement('a');
     title.setAttribute('href', article.url);
     title.setAttribute('target', '_blank');
     title.textContent = article.title;
+
+    // Image
+    let img = document.createElement('img');
+    img.setAttribute('src', article.urlToImage);
+    img.setAttribute('alt', 'image');
+    img.addEventListener('mouseover', function() {
+        img.style.cursor = 'pointer';     
+     })
+    img.addEventListener('click', function() {
+        title.click();  // Clicking image opens the page
+    })
+    
 
     // Description
     let desc = document.createElement('p');
@@ -339,6 +346,7 @@ async function fetchNews(isNewSearch) {
                 if (isNewSearch) {
                     clearPage();
                     fetchMoreBtnContainer.style.display = 'block'; // Show see more button
+                    toggleToastResultsReturned();
                 }
                 setupPage();
             } else if (!resultReturned) {
@@ -524,6 +532,23 @@ function toggleToastNoMoreResults() {
     }, 3500);  
 }
 
+// Search returned results
+function toggleToastResultsReturned() {
+    let toastResultsReturned = document.querySelector('.toast-results-returned');
+
+    let hits = document.querySelector('#hits');
+    hits.textContent = `${result.totalResults} results returned.`;
+
+    toastResultsReturned.classList.toggle('active');
+    // Disappear after 3.5s
+    setTimeout(() => {
+        // Check if toast was previously closed by 'X' button
+        if (toastResultsReturned.classList.contains('active')) {
+            toastResultsReturned.classList.toggle('active');
+        }
+    }, 4000);  
+}
+
 // Close toast prematurely using 'X' button
 toastClose.addEventListener('click', function() {
     let parent = toastClose.parentElement.parentElement;
@@ -533,8 +558,8 @@ toastClose.addEventListener('click', function() {
 // ============================
 // QUICK FILTERS
 // ============================
-const quickFilterNewBtn = document.querySelector('#quick-filter-new');
-const quickFilterTrendingBtn = document.querySelector('#quick-filter-trending');
+// const quickFilterNewBtn = document.querySelector('#quick-filter-new');
+// const quickFilterTrendingBtn = document.querySelector('#quick-filter-trending');
 
 // quickFilterNewBtn.addEventListener('click', function() {
 //     // Reset custom filters and set to premade filters
