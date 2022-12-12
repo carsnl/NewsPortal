@@ -45,7 +45,7 @@ const toastClose = document.querySelector(".toast-close");
 // Search Filters
 // -----------------------
 let endpoint = 'everything';
-let filterSort = '&sortBy=publishedAt';
+let filterSort = 'publishedAt';
 let filterLang = '';
 let filterStartDate = '';
 let filterEndDate = '';
@@ -322,18 +322,37 @@ async function fetchNews(isNewSearch) {
     const fetchMoreBtnContainer = document.querySelector('#fetch-more-btn-container');
     const noResultsError = document.querySelector('.no-results-container.error');
 
+    // Construct URL according to query and filters
+    let searchUrl = `https://newsapi.org/v2/${endpoint}`;
+
+    const searchParams = [`q=${searchQuery.value}`, `sortBy=${filterSort}`, `language=${filterLang}`, `from=${filterStartDate}`, `to=${filterEndDate}`, `country=${filterCountry}`, `sources=${filterSources}`, `page=${page}`];
+
+    for (let param of searchParams) {
+        let paramInput = param.split('=')[1];
+        // param is tag + input e.g. (q=) + ('query')
+        if (paramInput != '') {
+            if (param === searchParams[0]) {
+                searchUrl += `?${param}`; // first param preceeds with ?
+            } else {
+                searchUrl += `&${param}`; // subsequent params preceeds with &
+            }
+        }   
+    }
+
+    console.log(searchUrl);
+
     // Check if a query was provided
     let queryProvided = validateQuery(searchQuery.value);
-    if (queryProvided) {
-        query = `&q='${searchQuery.value}'`;    // Search query provided
-    } else {
-        query = '';
+    if (!queryProvided) {
         toggleToastEmptySearch();   // No search query provided, show toast to warn user
     }
 
-    console.log((`https://newsapi.org/v2/${endpoint}?apiKey=${apiKey}${query}${filterSort}${filterLang}${filterStartDate}${filterEndDate}${filterCountry}${filterSources}&page=${page}`))
-
-    fetch(`https://newsapi.org/v2/${endpoint}?apiKey=${apiKey}${query}${filterSort}${filterLang}${filterStartDate}${filterEndDate}${filterCountry}${filterSources}&page=${page}`)
+    // Call API
+    fetch(searchUrl, {
+        headers: {
+            'x-api-key': apiKey,
+        }
+    })
         .then((response) => response.json())
         .then((data) => {
             result = data;
@@ -409,26 +428,26 @@ const countryNotice = document.querySelector('.country-select-notice');
 const filterForm = document.querySelector('.filter-drop-down-container');
 
 // Detects if user has selected a specific country, then shows information notification
-filterCountryInput.addEventListener('input', function(e) {
+// filterCountryInput.addEventListener('input', function(e) {
 
-    // If specific country selected (default All is ''), prompt user
-    if (e.target.value != '') {
-        if (!(countryNotice.classList.contains('notice-active'))) {
-            // If notice is not active, activate it
-            countryNotice.classList.toggle('notice-active');
-            filterForm.classList.toggle('notice-active');
-            filterContainer.classList.toggle('notice-active');
-        }       
-    } else {
-        // All is selected
-        if ((countryNotice.classList.contains('notice-active'))) {
-            // If notice is active, deactivate it
-            countryNotice.classList.toggle('notice-active');
-            filterForm.classList.toggle('notice-active');
-            filterContainer.classList.toggle('notice-active');
-        }  
-    }
-})
+//     // If specific country selected (default All is ''), prompt user
+//     if (e.target.value != '') {
+//         if (!(countryNotice.classList.contains('notice-active'))) {
+//             // If notice is not active, activate it
+//             countryNotice.classList.toggle('notice-active');
+//             filterForm.classList.toggle('notice-active');
+//             filterContainer.classList.toggle('notice-active');
+//         }       
+//     } else {
+//         // All is selected
+//         if ((countryNotice.classList.contains('notice-active'))) {
+//             // If notice is active, deactivate it
+//             countryNotice.classList.toggle('notice-active');
+//             filterForm.classList.toggle('notice-active');
+//             filterContainer.classList.toggle('notice-active');
+//         }  
+//     }
+// })
 
 // Apply filters
 filterApplyBtn.addEventListener('click', function() {
