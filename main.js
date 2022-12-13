@@ -103,12 +103,12 @@ searchClearBtn.addEventListener('click', function() {
 
 // Open filter menu
 filterToggleBtn.addEventListener('click', function() {
-    filterContainer.classList.toggle('active');
+    toggleFilterContainer();
 });
 
 // Close filter menu
 filterCloseBtn.addEventListener('click', function() {
-    filterContainer.classList.toggle('active');
+    toggleFilterContainer();
 });
 
 // Change filter tags
@@ -223,7 +223,7 @@ searchBtn.addEventListener('click', function() {
     // Open filter window when a tag is clicked
     for (let tag of tagContainer.children) {
         tag.addEventListener('click', function() {
-            filterContainer.classList.toggle('active');
+            toggleFilterContainer();
         })
     }
 })
@@ -325,7 +325,7 @@ async function fetchNews(isNewSearch) {
     // Construct URL according to query and filters
     let searchUrl = `https://newsapi.org/v2/${endpoint}`;
 
-    const searchParams = [`q=${searchQuery.value}`, `sortBy=${filterSort}`, `language=${filterLang}`, `from=${filterStartDate}`, `to=${filterEndDate}`, `country=${filterCountry}`, `sources=${filterSources}`, `page=${page}`];
+    const searchParams = [`q='${searchQuery.value}'`, `sortBy=${filterSort}`, `language=${filterLang}`, `from=${filterStartDate}`, `to=${filterEndDate}`, `country=${filterCountry}`, `sources=${filterSources}`, `page=${page}`];
 
     for (let param of searchParams) {
         let paramInput = param.split('=')[1];
@@ -355,6 +355,7 @@ async function fetchNews(isNewSearch) {
     })
         .then((response) => response.json())
         .then((data) => {
+            toggleLoad();
             result = data;
             resultReturned = checkResponse(data);    // Confirm if successfull response has results
 
@@ -374,6 +375,9 @@ async function fetchNews(isNewSearch) {
                 fetchMoreBtn.style.display = 'none'; // Hide see more button
             }
         })
+        .then(
+            toggleLoad()
+        )
 }
 
 // Fetch more button press
@@ -484,7 +488,7 @@ filterApplyBtn.addEventListener('click', function() {
     }
 
     // Close filter window
-    filterContainer.classList.toggle('active');
+    toggleFilterContainer();
 
     // Search for news
     if (pageContainer.classList.contains('with-results')) {
@@ -573,6 +577,19 @@ toastClose.addEventListener('click', function() {
     let parent = toastClose.parentElement.parentElement;
     parent.classList.toggle('active');
 }) 
+
+// Toggle filter window
+function toggleFilterContainer() {
+    filterContainer.classList.toggle('active');
+    const pageMask = document.querySelector('#page-mask');
+    if (filterContainer.classList.contains('active')) {
+        pageMask.style.background = 'rgba(0,0,0,0.3)'
+        pageMask.style.height = '100vh'
+    } else {
+        pageMask.style.background = 'none'
+        pageMask.style.height = '0vh'
+    }
+}
 
 // ============================
 // QUICK FILTERS
@@ -677,6 +694,17 @@ function checkResponse(data) {
     } catch {
         return false;
     }
+}
+
+// Toggles the load bar when a request is sent
+function toggleLoad() {
+    // Search Bar load animation
+    const load = document.querySelector('.load-animation');
+    load.classList.toggle('active');
+
+    // Load bar at bottom of page
+    const loadBar = document.querySelector('.load-bar');
+    loadBar.classList.toggle('active');
 }
 
 

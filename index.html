@@ -24,6 +24,8 @@
 
 </head>
 <body>
+    <!-- Darken Page -->
+    <div id="page-mask"></div>
     <!-- Navbar -->
     <section class="navbar-container">
         <!-- Header -->
@@ -50,7 +52,7 @@
             <div class="search-bar">
                 <!-- Input -->
                 <label for="search-input"></label>
-                <input type="text" name="search-input" id="search-input" class="search-query">
+                <input type="text" name="search-input" id="search-input" class="search-query load-animation">
 
                 <!-- Filter -->
                 <button type="menu" class="filter-btn search-bar-btn btn">
@@ -215,7 +217,7 @@
             </div>
         </div>
         <button type="submit" class="filter-apply-btn btn-2">
-            <h3>Apply</h3>
+            <h4>Apply</h4>
         </button>
     </div>
     </div>
@@ -225,6 +227,9 @@
         <i class="fa-solid fa-angles-up"></i>
         <p class="tooltip">Back to top</p>
     </button>
+
+    <!-- Load Bar -->
+    <div class="load-bar"></div>
 
     <!-- Footer -->
     <footer>
