@@ -58,20 +58,18 @@ let page = 1;
 // -----------------------
 searchPlaceholder = [
     'football',
-    'fishing',
     'Europe',
-    'games',
+    'movies',
     'books',
-    'race car',
-    'Marvel Movies',
+    'war',
+    'Marvel',
     'Olympic Games',
 ]
 
 // Provide random placeholder on start-up
 searchQuery.setAttribute(
-    'placeholder', 
-    searchPlaceholder[Math.floor(Math.random()*searchPlaceholder.length)],
-    );
+    'placeholder', `${getPlaceholder()}`
+);
 
 // ==============================
 // EVENTS
@@ -82,9 +80,9 @@ searchQuery.setAttribute(
 // -----------------------
 
 // Open hamburger menu
-hamburger.addEventListener('click', function() {
-    menu.classList.toggle('active');
-});
+// hamburger.addEventListener('click', function() {
+//     menu.classList.toggle('active');
+// });
 
 // Clear search bar
 let searchClearBtn = document.querySelector('.search-clear-btn');
@@ -108,7 +106,7 @@ filterToggleBtn.addEventListener('click', function() {
 
 // Close filter menu
 filterCloseBtn.addEventListener('click', function() {
-    toggleFilterContainer();
+    filterApplyBtn.click();
 });
 
 // Change filter tags
@@ -327,15 +325,17 @@ async function fetchNews(isNewSearch) {
 
     const searchParams = [`q='${searchQuery.value}'`, `sortBy=${filterSort}`, `language=${filterLang}`, `from=${filterStartDate}`, `to=${filterEndDate}`, `country=${filterCountry}`, `sources=${filterSources}`, `page=${page}`];
 
+    let paramCount = 1;
     for (let param of searchParams) {
         let paramInput = param.split('=')[1];
         // param is tag + input e.g. (q=) + ('query')
-        if (paramInput != '') {
-            if (param === searchParams[0]) {
+        if (paramInput != '' && paramInput != `''`) {
+            if (paramCount === 1) {
                 searchUrl += `?${param}`; // first param preceeds with ?
             } else {
                 searchUrl += `&${param}`; // subsequent params preceeds with &
             }
+            paramCount += 1;
         }   
     }
 
@@ -432,26 +432,44 @@ const countryNotice = document.querySelector('.country-select-notice');
 const filterForm = document.querySelector('.filter-drop-down-container');
 
 // Detects if user has selected a specific country, then shows information notification
-// filterCountryInput.addEventListener('input', function(e) {
+filterCountryInput.addEventListener('input', function(e) {
 
-//     // If specific country selected (default All is ''), prompt user
-//     if (e.target.value != '') {
-//         if (!(countryNotice.classList.contains('notice-active'))) {
-//             // If notice is not active, activate it
-//             countryNotice.classList.toggle('notice-active');
-//             filterForm.classList.toggle('notice-active');
-//             filterContainer.classList.toggle('notice-active');
-//         }       
-//     } else {
-//         // All is selected
-//         if ((countryNotice.classList.contains('notice-active'))) {
-//             // If notice is active, deactivate it
-//             countryNotice.classList.toggle('notice-active');
-//             filterForm.classList.toggle('notice-active');
-//             filterContainer.classList.toggle('notice-active');
-//         }  
-//     }
-// })
+    // If specific country selected (default All is ''), prompt user
+    if (e.target.value != '') {
+        if (!(countryNotice.classList.contains('notice-active'))) {
+            // If notice is not active, activate it
+            countryNotice.classList.toggle('notice-active');
+            filterForm.classList.toggle('notice-active');
+            filterContainer.classList.toggle('notice-active');
+            // Disable search bar
+            toggleSearchBar(false);
+        }       
+    } else {
+        // All is selected
+        if ((countryNotice.classList.contains('notice-active'))) {
+            // If notice is active, deactivate it
+            countryNotice.classList.toggle('notice-active');
+            filterForm.classList.toggle('notice-active');
+            filterContainer.classList.toggle('notice-active');
+            // Activate search bar
+            toggleSearchBar(true);
+        }  
+    }
+})
+
+// Toggles search bar 'on' or 'off' 
+function toggleSearchBar(on) {
+    if (on) {
+        searchQuery.setAttribute('disable', false);
+        searchQuery.setAttribute('placeholder', getPlaceholder().toString());
+        searchQuery.classList.toggle('disable');
+    } else {
+        searchQuery.setAttribute('disable', true);
+        searchQuery.setAttribute('placeholder', `Headlines Mode Enabled`);
+        searchQuery.classList.toggle('disable');
+        searchQuery.value = '';
+    }
+}
 
 // Apply filters
 filterApplyBtn.addEventListener('click', function() {
@@ -483,7 +501,9 @@ filterApplyBtn.addEventListener('click', function() {
 
     // If a specific country selected (not 'All')
     // NOTE: News API does not support 'everything' endpoint for specific countries
-    if (filterCountry !== '') {
+    if (filterCountry == '') {
+        endpoint = 'everything';
+    } else {
         endpoint = 'top-headlines';
     }
 
@@ -659,6 +679,11 @@ function getDateNDaysAgo(daysAgo) {
     return `${year}-${month}-${day}`
 }
 
+// Return a random placeholder for the search bar
+function getPlaceholder() {
+    return searchPlaceholder[Math.floor(Math.random()*searchPlaceholder.length)]
+}
+
 
 // -----------------------
 // Input Validation
@@ -689,8 +714,11 @@ function validateQuery(query) {
 // Check if a response with results was returned (no empty responses)
 function checkResponse(data) {
     try {
-        data.articles.length;
-        return true;
+        if (data.articles.length > 0) {
+            return true;
+        } else {
+            return false;
+        }      
     } catch {
         return false;
     }
