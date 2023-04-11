@@ -1,6 +1,6 @@
 # NewsPortal
 
-[logo](./assets/images/logo.png)
+[logo](/assets/images/logo.png)
 
 ## About
 NewsPortal is a web application that collects online news articles from a variety of reputable sources and displays them all in one infinite scrolling webpage. Each article is presented as a card that displays important information such as article title, description, and publisher in a standardised format for easy reading. Each article is linked to the publisher's domain, so users just need to click on an article to read more. Searches can be can customised by providing specific search queries and filtering the results returned.
@@ -50,12 +50,15 @@ At writing, the developer is a 2nd year university student. The purpose of creat
 
 ## Use Instructions
 
+**IMPORTANT**: Python must be installed in your system for NewsPortal to work.
+
 <details>
 <summary>
-**IMPORTANT**: Python must be installed in your system for NewsPortal to work. (Why?)
+Why must I install Python? Shouldn't it already be deployed on a live server? (Click to expand)
 </summary>
-Since NewsPortal is a personal project, it is not hosted a server (which requires payment). The NewsPortal launcher requires Python to start a local HTTP server so that the application can be hosted on your local device. 
-
+<br>
+Since NewsPortal is a personal project, it is not hosted on a server (which requires payment). The NewsPortal launcher requires Python to start a local HTTP server so that the application can be hosted on your local device. 
+<br>
 Note that opening _index.html_ does not work either, since the free version of NewsAPI used in this project requires the GET requests to come from a defined _localhost_ server. The free version of NewsAPI does not allow cross-domain requests.
 
 </details>
@@ -63,12 +66,20 @@ Note that opening _index.html_ does not work either, since the free version of N
 #### Follow these steps carefully to start using NewsPortal:
 
 1. Download the latest version of Python [here](https://www.python.org/downloads/) for your system.
-2. Click on the downloaded fiel and follow the Python installation instructions.
+2. Click on the downloaded file and follow the Python installation instructions.
 3. At the top of [this repository page](https://github.com/carsnl/NewsPortal/), click **Code** > **Download ZIP**.
 4. Unzip the downloaded file.
-5. Click **launch.bat** to start the application. A browser tab will be opened.
+5. Click **launch.bat** after Python has been installed to start the application. A browser tab will be opened.
 6. That's it!
 
 ## Additional Information
+
+- Technology stack: JavaScript, HTML, CSS, NewsAPI (developer package)
+- NewsPortal uses a personal API key. If your search does not return results after a while, the amount of requests sent to the NewsAPI servers may have exceeded the daily limit. Try again the next day.
+- The limitations of NewsAPI (developer version) is listed [here](https://newsapi.org/pricing).
+
+For enquires, contact [laicarson.swe@gmail.com](laicarson.swe@gmail.com).
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
 
 
