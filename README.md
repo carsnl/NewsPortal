@@ -13,8 +13,12 @@ At writing, the developer is a 2nd year university student. The purpose of creat
 #### An example search
 ![searchquery](./assets/searchquery.png)
 
+#### An example search using a different language (German shown)
+![language](./assets/language.png)
+
 #### Filter menu
 ![searchfilter](./assets/searchfilter.png)
+
 ![dropdown](./assets/dropdown.png)
 
 #### How articles are displayed
@@ -26,7 +30,7 @@ At writing, the developer is a 2nd year university student. The purpose of creat
 #### Click "See More" to show more articles on the same page (if available)
 ![seemore](./assets/seemore.png)
 
-#### A successful search returns the amount of results found
+#### A successful search returns the amount of articles found
 ![toast](./assets/toast.png)
 
 #### An unsuccessful search displays an error message
@@ -40,7 +44,6 @@ At writing, the developer is a 2nd year university student. The purpose of creat
 ##### Version 2
 ![v2](./assets/newsportal_v2.png)
 
-##### Version 3
 ![v3](./assets/newsportal_v3.jpg)
 
 ## Use Instructions
