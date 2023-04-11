@@ -15,6 +15,10 @@ At writing, the developer is a 2nd year university student. The purpose of creat
 
 ## Preview <a name="preview">
 
+#### GIF Preview
+
+![showcase.gif](./assets/showcase.gif)
+
 #### Homepage of NewsPortal
 ![homepage](./assets/homepage.png)
 
