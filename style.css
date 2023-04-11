@@ -111,6 +111,7 @@ option {
 a {
     font-family: 'Montserrat', sans-serif;
     text-decoration: none;
+    color: var(--color-gray-1)
 }
 
 a:visited {
