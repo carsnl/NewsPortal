@@ -1,7 +1,9 @@
-start "" explorer http://localhost:5500
+@REM start "" http://localhost/index.html
 
-ping 127.0.0.1 -n 2 > nul
+@echo Off
 
-start index.html
+start "" /min python -m http.server 8000 -b 127.0.0.1
 
-exit
+sleep 1
+
+start http://127.0.0.1:8000/index.html
