@@ -6,7 +6,7 @@
 [Preview](#preview)<br>
 [Use Instructions](#use)<br>
 [Additional Information](#info)<br>
-[Licensing](#license)<br>
+[Licensing](#licensing)<br>
 
 ## About <a name="about">
 NewsPortal is a web application that collects online news articles from a variety of reputable sources and displays them all in one infinite scrolling webpage. Each article is presented as a card that displays important information such as article title, description, and publisher in a standardised format for easy reading. Each article is linked to the publisher's domain, so just click on an article to read more. Searches can be can customised by providing specific search queries and filtering the results returned.
