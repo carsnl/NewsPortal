@@ -93,15 +93,15 @@ Follow these steps carefully.
 #### Using the application
 
 ##### Searching
-- When NewsPortal launches, the homepage is presented. Start searching by providing a word or phrase in the search bar.
+- When NewsPortal launches, the homepage is presented. Start searching by entering a word or phrase in the search bar.
 - Search by pressing the 'Enter' key, or by clicking the magnifying glass to the left.
-- To quickly clear your search term, press on the 'X' button within the search bar.
-- Headline Mode presents the top news articles of a specific country. To activate Headline Mode, empty the search bar and select the desired country in the filter menu. If successful, the disabled search bar should now display "Headline Mode Enabled". To leave Headline Mode, select "All Countries" in the filter menu.
+- To quickly clear the search bar, press on the 'X' button within the search bar.
+- Headline Mode presents the top news articles of a specific country. To activate Headline Mode, select the desired country in the filter menu. If successful, the disabled search bar should now display 'Headline Mode Enabled'. To deactivate Headline Mode, select "All Countries" in the filter menu.
 
 ##### Filters
 - The filter menu can be accessed by clicking on the checklist icon within the search bar. You can select your filters before performing a search. 
 - Alternatively, click on the filter tags below the search bar to open up the filter menu. Filter tags only show up if a search was previously made.
-- Specific combinations of filters may result in no results being returned. Try a different combination or a different search term.
+- Specific combinations of filters may result in no results being returned. Try a different combination of filters or a different search term.
 
 ##### News Articles
 - To read more about an article, click on the article title. Alternatively, hover over the article and click on "Read More".
@@ -109,7 +109,7 @@ Follow these steps carefully.
 
 ## Additional Information <a name="info">
 
-- Technology stack: JavaScript, HTML, CSS, NewsAPI (developer package)
+- Developed using JavaScript, HTML, CSS and NewsAPI (developer package).
 - NewsPortal uses a personal API key. If your search does not return results after a while, the amount of requests sent to the NewsAPI servers may have exceeded the daily limit. Try again the next day.
 - The limitations of NewsAPI (developer version) is listed [here](https://newsapi.org/pricing).
 
