@@ -13,6 +13,12 @@ NewsPortal is a web application that collects online news articles from a variet
 
 At writing, the developer is a 2nd year university student. The purpose of creating NewsPortal was to learn the basics of handling API requests and front-end web development in a self-learning environment, as preparation for future university modules. NewsPortal was created using JavaScript, HTML, CSS and [NewsAPI](https://newsapi.org/).
 
+#### Features:
+- All news articles are presented in a single page. Just keep scrolling!
+- Each article is presented the same way - concise and informative to allow users to compare articles quickly.
+- Customise searches by adjusting the search filters.
+- Click on any article to read more.
+
 ## Preview <a name="preview">
 
 #### GIF Preview
@@ -60,6 +66,8 @@ At writing, the developer is a 2nd year university student. The purpose of creat
 
 ## Use Instructions <a name="use">
 
+#### Download:
+
 **IMPORTANT**: Python must be installed in your system for NewsPortal to work.
 
 <details>
@@ -73,7 +81,7 @@ Note that opening index.html does not work either, since the free version of New
 
 </details>
 
-#### Follow these steps carefully to start using NewsPortal:
+Follow these steps carefully.
 
 1. Download the latest version of Python [here](https://www.python.org/downloads/) for your system.
 2. Click on the downloaded file and follow the Python installation instructions.
@@ -81,6 +89,23 @@ Note that opening index.html does not work either, since the free version of New
 4. Unzip the downloaded file.
 5. Click **launch.bat** after Python has been installed to start the application. A browser tab will be opened.
 6. That's it!
+
+#### Using the application
+
+##### Searching
+- When NewsPortal launches, the homepage is presented. Start searching by providing a word or phrase in the search bar.
+- Search by pressing the 'Enter' key, or by clicking the magnifying glass to the left.
+- To quickly clear your search term, press on the 'X' button within the search bar.
+- Headline Mode presents the top news articles of a specific country. To activate Headline Mode, empty the search bar and select the desired country in the filter menu. If successful, the disabled search bar should now display "Headline Mode Enabled". To leave Headline Mode, select "All Countries" in the filter menu.
+
+##### Filters
+- The filter menu can be accessed by clicking on the checklist icon within the search bar. You can select your filters before performing a search. 
+- Alternatively, click on the filter tags below the search bar to open up the filter menu. Filter tags only show up if a search was previously made.
+- Specific combinations of filters may result in no results being returned. Try a different combination or a different search term.
+
+##### News Articles
+- To read more about an article, click on the article title. Alternatively, hover over the article and click on "Read More".
+- Certain news articles may have broken images or descriptions. This is due to an issue with the publisher's site and not NewsPortal.
 
 ## Additional Information <a name="info">
 
