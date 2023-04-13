@@ -1,4 +1,4 @@
-# ![logo](./assets/images/logo.png) NewsPortal
+# ![logo](./assets/images/logo_repo.png) NewsPortal
 
 ## Table of Contents
 
