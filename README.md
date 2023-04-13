@@ -1,4 +1,4 @@
-# NewsPortal
+# ![logo](./assets/images/logo.png) NewsPortal
 
 ## Table of Contents
 
@@ -68,7 +68,7 @@ At writing, the developer is a 2nd year university student. The purpose of creat
 
 #### Download:
 
-**IMPORTANT**: Python must be installed in your system for NewsPortal to work.
+**IMPORTANT**: Python must be installed in your system for NewsPortal to work. No IDE or compiler is requierd.
 
 <details>
 <summary>
