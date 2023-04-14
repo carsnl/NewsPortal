@@ -18,6 +18,7 @@ At writing, the developer is a 2nd year university student. The purpose of creat
 - Each article is presented the same way - concise and informative to allow users to compare articles quickly.
 - Customise searches by adjusting the search filters.
 - Click on any article to read more.
+- A reponsive web page that changes its layout based on screen or window size.
 
 ## Preview <a name="preview">
 
@@ -53,6 +54,11 @@ At writing, the developer is a 2nd year university student. The purpose of creat
 
 #### An unsuccessful search displays an error message
 ![error](./assets/error.png)
+
+#### Page layout changes based on window size
+![responsive_med](./assets/responsive_medium.png)
+
+![responsive_small](./assets/responsive_smallest.png)
 
 #### Previous versions of NewsPortal (previously called Content Digest)
 
