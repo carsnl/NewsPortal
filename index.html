@@ -1,233 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Content-Security-Policy" content="*">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Security-Policy" content="*" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Style Sheet -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
 
     <!-- Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- Roboto -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap"
+      rel="stylesheet"
+    />
     <!-- Playfair Display -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;800&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;800&display=swap"
+      rel="stylesheet"
+    />
     <!-- Monserrat -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
     <title>NewsPortal</title>
-    <link rel="icon" type="image/x-icon" href="/assets/images/logo.png">
-
-</head>
-<body>
+    <link rel="icon" type="image/x-icon" href="/assets/images/logo.png" />
+  </head>
+  <body>
     <!-- Darken Page -->
     <div id="page-mask"></div>
     <!-- Navbar -->
     <section class="navbar-container">
-        <!-- Header -->
-        <header>
-            <a href="index.html">NewsPortal</a> 
-        </header>
-        <!-- Collapsed Menu -->
-        <!-- <button class="collapsed-menu">
+      <!-- Header -->
+      <header>
+        <a href="index.html">NewsPortal</a>
+      </header>
+      <!-- Collapsed Menu -->
+      <!-- <button class="collapsed-menu">
             <i class="fa-solid fa-bars"></i>
         </button> -->
     </section>
 
     <!-- Display Content -->
     <div class="page-container">
-        <!-- Welcome Message (No searches made) -->
-        <section class="welcome-msg">
-            <h1 class="welcome-header">Get searching!</h1>
-            <h3 class="welcome-text">Begin searching <i class="fa-solid fa-magnifying-glass"></i> by providing a topic.</h5>
-            <h3 class="welcome-text">Use filters <i class="fa-solid fa-list-check"></i> to customise your searches.</h5>
-        </section>
+      <!-- Welcome Message (No searches made) -->
+      <section class="welcome-msg">
+        <h1 class="welcome-header">Get searching!</h1>
+        <h3 class="welcome-text">
+          Begin searching <i class="fa-solid fa-magnifying-glass"></i> by
+          providing a topic.
+        </h3>
+        <h3 class="welcome-text">
+          Use filters <i class="fa-solid fa-list-check"></i> to customise your
+          searches.
+        </h3>
+      </section>
 
-        <!-- Search -->
-        <section class="search-container">
-            <div class="search-bar">
-                <!-- Input -->
-                <label for="search-input"></label>
-                <input type="text" name="search-input" id="search-input" class="search-query load-animation">
+      <!-- Search -->
+      <section class="search-container">
+        <div class="search-bar">
+          <!-- Input -->
+          <label for="search-input"></label>
+          <input
+            type="text"
+            name="search-input"
+            id="search-input"
+            class="search-query load-animation"
+          />
 
-                <!-- Filter -->
-                <button type="menu" class="filter-btn search-bar-btn btn">
-                    <i class="fa-solid fa-list-check"></i>
-                </button>
+          <!-- Filter -->
+          <button type="menu" class="filter-btn search-bar-btn btn">
+            <i class="fa-solid fa-list-check"></i>
+          </button>
 
-                <!-- Search -->
-                <button type="submit" class="search-btn search-bar-btn btn">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
+          <!-- Search -->
+          <button type="submit" class="search-btn search-bar-btn btn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
 
-                <!-- Clear Search -->
-                <button class="search-clear-btn close-btn search-bar-btn btn">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-        </section>
+          <!-- Clear Search -->
+          <button class="search-clear-btn close-btn search-bar-btn btn">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </section>
 
-        <!-- Quick Filters -->
-        <!-- <section class="quick-filter-container">
+      <!-- Quick Filters -->
+      <!-- <section class="quick-filter-container">
             <h5 class="quick-filter-item btn" id="quick-filter-new">Headlines</h5>
             <h5 class="quick-filter-item btn" id="quick-filter-trending">Custom</h5>
         </section> -->
-    
-        <!-- Filter Tags -->
-        <section class="section filter-tag-container">
-        </section>
 
-        <!-- Error Page -->
-        <!-- No results -->
-        <section class="no-results-container error">
-            <i class="fa-regular fa-face-frown-open error-icon"></i>
-            <h1>No results found</h1>
-            <p>Try a more specific topic or changing filters.</p>
-        </section>
+      <!-- Filter Tags -->
+      <section class="section filter-tag-container"></section>
 
-        <!-- News Articles -->
-        <section class="news-container">
-            <!-- News Story -->
-            <!-- Fetch More -->
-        </section>
+      <!-- Error Page -->
+      <!-- No results -->
+      <section class="no-results-container error">
+        <i class="fa-regular fa-face-frown-open error-icon"></i>
+        <h1>No results found</h1>
+        <p>Try a more specific topic or changing filters.</p>
+      </section>
 
-        <div id="fetch-more-btn-container">
-            <button id="fetch-more-btn">
-                <h5>See More</h6>
-            </button>
-        </div>
+      <!-- News Articles -->
+      <section class="news-container">
+        <!-- News Story -->
+        <!-- Fetch More -->
+      </section>
 
-    <!-- Toast Notifications -->
-    <!-- Results Returned -->
-    <div class="toast-results-returned toast-container toast-success toast">
+      <div id="fetch-more-btn-container">
+        <button id="fetch-more-btn">
+          <h6>See More</h6>
+        </button>
+      </div>
+
+      <!-- Toast Notifications -->
+      <!-- Results Returned -->
+      <div class="toast-results-returned toast-container toast-success toast">
         <div class="toast-content">
-            <div class="toast-img">
-                <i class="fa-regular fa-face-laugh-beam"></i>
-            </div>
-            <div class="toast-text" id="hits">
-            </div>
-            <div class="toast-close close-btn">
-                <i class="fa-solid fa-xmark"></i>
-            </div>
+          <div class="toast-img">
+            <i class="fa-regular fa-face-laugh-beam"></i>
+          </div>
+          <div class="toast-text" id="hits"></div>
+          <div class="toast-close close-btn">
+            <i class="fa-solid fa-xmark"></i>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <!-- Empty search query -->
-    <div class="toast-empty-search toast-container toast-warn toast">
+      <!-- Empty search query -->
+      <div class="toast-empty-search toast-container toast-warn toast">
         <div class="toast-content">
-            <div class="toast-img">
-                <i class="fa-solid fa-circle-exclamation"></i>
-            </div>
-            <div class="toast-text">
-                <p>Empty or broad search topics may return no results.</p> 
-            </div>
-            <div class="toast-close close-btn">
-                <i class="fa-solid fa-xmark"></i>
-            </div>
+          <div class="toast-img">
+            <i class="fa-solid fa-circle-exclamation"></i>
+          </div>
+          <div class="toast-text">
+            <p>Empty or broad search topics may return no results.</p>
+          </div>
+          <div class="toast-close close-btn">
+            <i class="fa-solid fa-xmark"></i>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <!-- No more results to show (See More) -->
-    <div class="toast-no-more-results toast-container toast-info toast">
+      <!-- No more results to show (See More) -->
+      <div class="toast-no-more-results toast-container toast-info toast">
         <div class="toast-content">
-            <div class="toast-img">
-                <i class="fa-solid fa-circle-exclamation"></i>
-            </div>
-            <div class="toast-text">
-                <p>No more results to show.</p> 
-            </div>
-            <div class="toast-close close-btn">
-                <i class="fa-solid fa-xmark"></i>
-            </div>
+          <div class="toast-img">
+            <i class="fa-solid fa-circle-exclamation"></i>
+          </div>
+          <div class="toast-text">
+            <p>No more results to show.</p>
+          </div>
+          <div class="toast-close close-btn">
+            <i class="fa-solid fa-xmark"></i>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <!-- Pop-up Windows -->
-    <!-- Filter -->
-    <div class="filter-container container">
+      <!-- Pop-up Windows -->
+      <!-- Filter -->
+      <div class="filter-container container">
         <h3 class="filter-title">Filters</h3>
         <div class="filter-close-btn close-btn">
-            <i class="fa-solid fa-xmark"></i>
+          <i class="fa-solid fa-xmark"></i>
         </div>
         <!-- Notices -->
         <!-- When user selects a specific country -->
         <div class="country-select-notice notice">
-            <i class="fa-solid fa-circle-info"></i>
-            <p>Search topics disabled for Country. Searches return country headlines instead.</p>
+          <i class="fa-solid fa-circle-info"></i>
+          <p>
+            Search topics disabled for Country. Searches return country
+            headlines instead.
+          </p>
         </div>
         <!-- Drop Down -->
         <div class="filter-drop-down-container">
-            <!-- Sort -->
-            <div class="filter-drop-down-item">
-                <label for="sort">Sort By</label>
-                <select name="sort" id="sort">
-                    <option value="publishedAt">New</option>
-                    <option value="relevancy">Relevance</option>
-                    <option value="popularity">Popular</option>
-                </select>
+          <!-- Sort -->
+          <div class="filter-drop-down-item">
+            <label for="sort">Sort By</label>
+            <select name="sort" id="sort">
+              <option value="publishedAt">New</option>
+              <option value="relevancy">Relevance</option>
+              <option value="popularity">Popular</option>
+            </select>
+          </div>
+          <!-- Language -->
+          <div class="filter-drop-down-item">
+            <label for="language">Language</label>
+            <select name="language" id="language">
+              <option value="">All Languages</option>
+              <option value="en">English</option>
+              <option value="de">German</option>
+              <option value="fr">French</option>
+              <option value="ja">Japanese</option>
+            </select>
+          </div>
+          <!-- Date -->
+          <div class="filter-drop-down-item">
+            <div class="date">
+              <div class="start-date">
+                <label for="start-date">From</label>
+                <input type="date" name="start-date" id="start-date" />
+              </div>
+              <div class="end-date">
+                <label for="end-date">To</label>
+                <input type="date" name="end-date" id="end-date" />
+              </div>
             </div>
-            <!-- Language -->
-            <div class="filter-drop-down-item">
-                <label for="language">Language</label>
-                <select name="language" id="language">
-                    <option value="">All Languages</option>
-                    <option value="en">English</option>
-                    <option value="de">German</option>
-                    <option value="fr">French</option>
-                    <option value="ja">Japanese</option>
-                </select>
-            </div>
-            <!-- Date -->
-            <div class="filter-drop-down-item">
-                <div class="date">
-                    <div class="start-date">
-                        <label for="start-date">From</label>
-                        <input type="date" name="start-date" id="start-date">
-                    </div>
-                    <div class="end-date">
-                        <label for="end-date">To</label>
-                        <input type="date" name="end-date" id="end-date">
-                    </div>
-                </div>
-            </div>
-            <!-- Country -->
-            <div class="filter-drop-down-item">
-                <label for="country">Country</label>
-                <select name="country" id="country">
-                    <option value="">All Countries</option>
-                    <option value="au">Australia</option>
-                    <option value="br">Brazil</option>
-                    <option value="cn">China</option>
-                    <option value="de">Germany</option>
-                    <option value="in">India</option>
-                    <option value="id">Indonesia</option>
-                    <option value="jp">Japan</option>
-                    <option value="my">Malaysia</option>
-                    <option value="r=/option>
-                    <option value="sa">Saudi Arabia</option>
-                    <option value="sg">Singapore</option>
-                    <option value="ae">United Arab Emirates</option>
-                    <option value="uk">United Kingdom</option>
-                    <option value="us">United States</option>
-                </select>
-            </div>
+          </div>
+          <!-- Country -->
+          <div class="filter-drop-down-item">
+            <label for="country">Country</label>
+            <select name="country" id="country">
+              <option value="">All Countries</option>
+              <option value="au">Australia</option>
+              <option value="br">Brazil</option>
+              <option value="cn">China</option>
+              <option value="de">Germany</option>
+              <option value="in">India</option>
+              <option value="id">Indonesia</option>
+              <option value="jp">Japan</option>
+              <option value="my">Malaysia</option>
+              <option value="sa">Saudi Arabia</option>
+              <option value="sg">Singapore</option>
+              <option value="ae">United Arab Emirates</option>
+              <option value="uk">United Kingdom</option>
+              <option value="us">United States</option>
+            </select>
+          </div>
         </div>
         <button type="submit" class="filter-apply-btn btn-2">
-            <p>Apply</p>
+          <p>Apply</p>
         </button>
-    </div>
+      </div>
     </div>
 
     <!-- Scroll to Top -->
     <button id="scroll-to-top-btn">
-        <i class="fa-solid fa-angles-up"></i>
-        <p class="tooltip">Back to top</p>
+      <i class="fa-solid fa-angles-up"></i>
+      <p class="tooltip">Back to top</p>
     </button>
 
     <!-- Load Bar -->
@@ -235,12 +260,10 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy 2022
-            <a href="https://github.com/carsnl" target="_blank">Lai Carson</a>
-        </p>
+      <p></p>
     </footer>
 
     <!-- Script -->
     <script src="main.js"></script>
-</body>
+  </body>
 </html>
