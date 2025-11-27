@@ -90,10 +90,10 @@ At writing, the developer is a 2nd year university student. The purpose of creat
 
 Follow these steps to host this project on localhost.
 
-1. Clone or download the source code from the this repository page.
+1. Clone or download the source code from this repository page.
 2. Download the latest version of [Node](https://nodejs.org/en/download) for your system.
 3. Obtain an API key from [NewsAPI](https://newsapi.org/).
-4. In the project's root directory (i.e. the same folder that contains .gitignore), create a new file named `.env`. Inside it, add your API key in the following format: <code>API_KEY='examplekey123'</code>, replacing `examplekey123` with your actual API key.
+4. In the project's root directory (i.e. the same folder that contains `.gitignore`), create a new file named `.env`. Inside it, add your API key in the following format: <code>API_KEY='examplekey123'</code>, replacing `examplekey123` with your actual API key.
 5. In the project's root directory, run the following commands:<br>
 
 ```bash
