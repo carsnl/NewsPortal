@@ -226,8 +226,6 @@ searchBtn.addEventListener("click", function () {
   countryTag.classList.add("default-filter");
   tagContainer.appendChild(countryTag);
 
-  console.log(tagContainer.children);
-
   // Open filter window when a tag is clicked
   for (let tag of tagContainer.children) {
     tag.addEventListener("click", function () {
@@ -357,20 +355,13 @@ async function fetchNews(isNewSearch) {
     }
   }
 
-  console.log(searchUrl);
-
   // Check if a query was provided
   let queryProvided = validateQuery(searchQuery.value);
   if (!queryProvided) {
     toggleToastEmptySearch(); // No search query provided, show toast to warn user
   }
 
-  // Call API
-  fetch(searchUrl, {
-    headers: {
-      "x-api-key": apiKey,
-    },
-  })
+  fetch(`http://localhost:3000/posts?url=${encodeURIComponent(searchUrl)}`)
     .then((response) => response.json())
     .then((data) => {
       toggleLoad();
@@ -579,7 +570,6 @@ function toggleToastEmptySearch() {
 // No more results returned from 'See More' button
 function toggleToastNoMoreResults() {
   let toastNoMoreResults = document.querySelector(".toast-no-more-results");
-  console.log(toastNoMoreResults);
   toastNoMoreResults.classList.toggle("active");
   // Disappear after 3.5s
   setTimeout(() => {
@@ -719,7 +709,6 @@ function validateDate(start, end) {
 // Search query
 function validateQuery(query) {
   // Process search query
-  console.log(query);
   if (query == "") {
     return false; // No search query provided, show toast to warn user
   } else {
